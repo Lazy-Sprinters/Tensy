@@ -46,11 +46,10 @@ const rfpSchema=mongoose.Schema({
       Negotiation_count:[{
             vendor_id:{
                   type:mongoose.Schema.Types.ObjectId,
-                  required:true
             },
             count:{
                   type:Number,
-                  default:0
+                  default:5
             }
       }],
       Most_Recent_Negotiation:[{
@@ -82,6 +81,6 @@ const rfpSchema=mongoose.Schema({
       }
 });
 
-const rfp=mongoose.model('rfp',rfpSchema);
+const Rfp=mongoose.model('Rfp',rfpSchema);
 
-module.exports=rfp;
+module.exports=Rfp;
