@@ -39,6 +39,10 @@ const rfpSchema=mongoose.Schema({
             type:mongoose.Schema.Types.ObjectId,
             required:true
       },
+      ModeofDelivery:{
+            type:String,
+            required:true
+      },
       Negotiation_count:[{
             vendor_id:{
                   type:mongoose.Schema.Types.ObjectId,
@@ -56,8 +60,8 @@ const rfpSchema=mongoose.Schema({
             Quote_EndDate:{
                   type:String
             },
-            Quote_Quantity:{
-                  type:Number
+            Quote_ModeofDelivery:{
+                  type:String
             },
             owner_Cost_per_Unit:{
                   type:Number
