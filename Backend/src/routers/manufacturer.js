@@ -34,7 +34,8 @@ router.post('/manufacturer/signup1',async (req,res)=>{
             manufacturer.Status=false;
             const response=await axios.get('https://geocode.search.hereapi.com/v1/geocode?q='+manufacturer.Address+'&apiKey='+process.env.API_KEY);
             const coordinates=Object.values(response.data.items[0].position);
-            if (coordinates.size()!=0)
+            console.log(coordinates)
+            if (coordinates.length!=0)
             {            
                   await manufacturer.save();
                   res.status(201).send(manufacturer);
@@ -45,6 +46,7 @@ router.post('/manufacturer/signup1',async (req,res)=>{
                   res.status(400).send("Invalid Address");      
             }
       }catch(err){
+            console.log(err)
             res.status(400).send(err);
       }
 });
@@ -75,10 +77,10 @@ router.post('/manufacturer/signup2',async (req,res)=>{
 });
 
 //Route-3:Login setup for a user(T completed)
-router.post('/user/login',async (req,res)=>{
+router.post('/manufacturer/login',async (req,res)=>{
       try{
             const manufacturer=await Manufacturer.findbycredentials(req.body.Email,req.body.password);
-            res.status(200).send(user);
+            res.status(200).send(manufacturer);
       }catch(err){
             console.log(err);
             res.status(404).send("User not registered");
@@ -86,11 +88,11 @@ router.post('/user/login',async (req,res)=>{
 });
 
 //Route-4:Sending OTP
-router.post('/user/newotps',async (req,res)=>{
+router.post('/manufacturer/newotps',async (req,res)=>{
       try{
-            // console.log(req.body);
+            console.log(req.body);
             const ManufacturerEmail=req.body.Email;
-            const manufacturer=await User.findOne({Email:ManufacturerEmail});
+            const manufacturer=await Manufacturer.findOne({Email:ManufacturerEmail});
             if (manufacturer!==undefined && manufacturer.Status==false){
                   const otp1=RegistrationUtil.GetOtp();
                   const otp2=RegistrationUtil.GetOtp();
