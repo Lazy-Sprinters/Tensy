@@ -121,68 +121,6 @@ router.post('/vendor/newotps',async (req,res)=>{
       }
 });
 
-//Route-5:Creating a new rfp
-router.post('/rfp/new',async (req,res)=>{
-      try{
-            console.log(req.body);
-            const rpf=new Rpf(req.body);
-            await rpf.save();
-            res.status(201).send(rpf);
-      }catch{
-            console.log(err);
-            res.status(400).send();
-      }
-})
-
-//Route-6:Sending the apt agreements
-router.post('/agreements/upd',async (req,res)=>{
-      try{
-            const allaggreements=await Agreement.find({Manufacturer_id:req.body.id});
-            let ret=[];
-            for(let i=0;i<allaggreements.length;i++)
-            {
-                  const date1=new Date();
-                  const newdate=new Date(allaggreements[i].EndDate);
-                  const tdiff=newdate.getTime()-date1.getTime();
-                  const ddiff=tdiff/(1000*3600*24);
-                  if (ddiff>=0 && ddiff<=15)
-                  {     
-                        ret.push({
-                              Product:allaggreements[i].Product_Name,
-                              Firm:allaggreements[i].Manufacturer,
-                              ContractEndDate:allaggreements[i].EndDate
-                        });
-                  }
-            }    
-            res.status(200).send(ret);
-      }catch(err){
-            console.log(err);
-            res.status(400).send();
-      }
-})
-
-//Route-7:Sending all the current contracts
-router.post('/manufacturer/allcontracts',async (req,res)=>{
-      try{
-            const allaggreements=await Agreement.find({Manufacturer_id:req.body.id});
-            let ret=[];
-            for(let i=0;i<allaggreements.length;i++)
-            {
-                  const date1=new Date();
-                  const newdate=new Date(allaggreements[i].EndDate);
-                  const tdiff=newdate.getTime()-date1.getTime();
-                  const ddiff=tdiff/(1000*3600*24);
-                  if (ddiff>=0)
-                  {     
-                        ret.push(allaggreements[i]);
-                  }
-            }
-            res.status(200).send(ret);
-      }catch(err){
-            console.log(err);
-            res.status(400).send();
-      }
-})
 
 // //Route-13:Logging a user out
 // router.post('/user/logout',Authmiddleware,async (req,res)=>{
