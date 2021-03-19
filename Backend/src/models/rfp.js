@@ -1,9 +1,83 @@
 const mongoose=require('mongoose');
 
 const rfpSchema=mongoose.Schema({
-      
+      Product_Name:{
+            type:String,
+            trim:true,
+            required:true
+      },
+      Unit:{
+            type:String,
+            required:true,
+            trim:true
+      },
+      Cost_per_Unit:{
+            type:Number,
+            required:true,
+      },
+      StartDate:{
+            type:Number,
+            required:true
+      },
+      Total_Quantity_required:{
+            type:Number,
+            required:true
+      },
+      EndDate:{
+            type:Number,
+            required:true
+      },
+      DeadlineDate:{
+            type:String,
+            required:true
+      },
+      Manufacturer:{
+            type:String,
+            required:true,
+      },
+      Manufacturer_id:{
+            type:mongoose.Schema.Types.ObjectId,
+            required:true
+      },
+      Negotiation_count:[{
+            vendor_id:{
+                  type:mongoose.Schema.Types.ObjectId,
+                  required:true
+            },
+            count:{
+                  type:Number,
+                  default:0
+            }
+      }],
+      Most_Recent_Negotiation:[{
+            Quote_Cost_per_Unit:{
+                  type:Number
+            },
+            Quote_EndDate:{
+                  type:String
+            },
+            Quote_Quantity:{
+                  type:Number
+            },
+            owner_Cost_per_Unit:{
+                  type:Number
+            },
+            owner_EndDate:{
+                  type:String
+            },
+            owner_Quantity:{
+                  type:Number
+            },
+            Quote_owner:{
+                  type:mongoose.Schema.Types.ObjectId
+            }
+      }],
+      Status:{
+            type:String,
+            required:true
+      }
 });
 
-const Appointment=mongoose.model('Appointment',rfpSchema);
+const rfp=mongoose.model('rfp',rfpSchema);
 
-module.exports=Appointment;
+module.exports=rfp;

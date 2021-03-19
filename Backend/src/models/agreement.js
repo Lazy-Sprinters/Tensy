@@ -1,21 +1,21 @@
 const mongoose=require('mongoose');
 
 const aggreementSchema=mongoose.Schema({
-      consumer_id:{
+      Manufacturer_id:{
             type:mongoose.Schema.Types.ObjectId,
             required:true
       },
-      supplier_id:{
+      Vendor_id:{
             type:mongoose.Schema.Types.ObjectId,
             required:true
       },
-      selected_proposal_id:{
+      rpf_id:{
             type:mongoose.Schema.Types.ObjectId,
             required:true
       },
-      proposals:{
-
-      },
+      Status:{
+            type:Boolean
+      }
 });
 
 const Agreement=mongoose.model('Agreement',aggreementSchema);
