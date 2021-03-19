@@ -27,7 +27,7 @@ const transporter=nodemailer.createTransport({
 
 //Route-1:Temporary creation of a manufacturer in the database(T completed)
 router.post('/manufacturer/signup1',async (req,res)=>{
-      console.log(req.body);
+      // console.log(req.body);
       const manufacturer=new Manufacturer(req.body);
       try{
             await manufacturer.save();
@@ -53,7 +53,7 @@ router.post('/manufacturer/signup1',async (req,res)=>{
 
 //Route-2:Permanent creation of a manufacturer in the database if OTP verification succeeds.(T completed)
 router.post('/manufacturer/signup2',async (req,res)=>{
-      console.log(req.body);
+      // console.log(req.body);
       try{
             const manufacturer=await Manufacturer.findOne({Email:req.body.Email}) 
             if (manufacturer==undefined){
@@ -80,7 +80,12 @@ router.post('/manufacturer/signup2',async (req,res)=>{
 router.post('/manufacturer/login',async (req,res)=>{
       try{
             const manufacturer=await Manufacturer.findbycredentials(req.body.Email,req.body.password);
-            res.status(200).send(manufacturer);
+            if (manufacturer.Status==true){
+                  res.status(200).send(manufacturer);
+            }
+            else{
+                  res.status(403).send("You are not verified");
+            }
       }catch(err){
             console.log(err);
             res.status(404).send("User not registered");
@@ -90,7 +95,7 @@ router.post('/manufacturer/login',async (req,res)=>{
 //Route-4:Sending OTP
 router.post('/manufacturer/newotps',async (req,res)=>{
       try{
-            console.log(req.body);
+            // console.log(req.body);
             const ManufacturerEmail=req.body.Email;
             const manufacturer=await Manufacturer.findOne({Email:ManufacturerEmail});
             if (manufacturer!==undefined && manufacturer.Status==false){
