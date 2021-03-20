@@ -221,6 +221,7 @@ router.post('/manufacturer/agreements',async(req,res)=>{
                         Live_Agreements.push(Helper.retobj(allagreements[i]));
                   }
             }
+            res.status(200).send({Upcoming_Agreements,Live_Agreements,Completed_Agreements});
       }catch(err){
             console.log(err);
             res.status(400).send();
