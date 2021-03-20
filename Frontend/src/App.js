@@ -2,6 +2,8 @@ import React from 'react';
 import './App.css';
 import Home from './components/Home';
 import Register from './components/Register';
+import Verify from './components/Verify';
+import CenterVerify from './components/CenterVerify';
 import CenterRegister from './components/CenterRegister';
 import Login from './components/Login';
 import CenterLogin from './components/CenterLogin';
@@ -23,6 +25,8 @@ function App() {
          <Route path='/' exact component={Home} />
           <Route path='/register' exact component={Register} />
           <Route path='/centerRegister' exact component={CenterRegister} />
+          <Route path='/verify' exact component={Verify} />
+          <Route path='/centerVerify' exact component={CenterVerify} />
           <Route path='/login' exact component={Login} />
           <Route path='/centerLogin' exact component={CenterLogin} />
           {/*<Route path='/centerRfp' exact component={CenterRfp} />*/}
