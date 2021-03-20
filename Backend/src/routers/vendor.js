@@ -186,6 +186,7 @@ router.post('/vendor/allvalidrfps',async (req,res)=>{
                               Price_Per_Unit:allsemivalidrfps[i].Cost_per_Unit,
                               StartDate:allsemivalidrfps[i].StartDate,
                               EndDate:allsemivalidrfps[i].EndDate,
+                              DeadlineDate:allsemivalidrfps[i].DeadlineDate,
                               Total_Quantity:allsemivalidrfps[i].Total_Quantity_required,
                               Mode_Of_Delivery:allsemivalidrfps[i].ModeofDelivery,
                               Manufacturer:currmanu.CompanyName,
