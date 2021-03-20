@@ -318,6 +318,7 @@ router.post('/manufacturer/openbids',async (req,res)=>{
                   const currentrfp=await Rpf.findOne({_id:allopenbids[i].rfp_id});
                   const o=allopenbids[i].All_negotiation[allopenbids[i].All_negotiation.length-1];
                   ret.push({
+                        Man_id:currmanufacturer._id,
                         Bid_id:allopenbids[i]._id,
                         Product:currentrfp.Product_Name,
                         Vendor:selectedvendor.CompanyName,
@@ -327,7 +328,8 @@ router.post('/manufacturer/openbids',async (req,res)=>{
                         Bidder:((o.Quote_owner==allopenbids[i].vendor)?selectedvendor.CompanyName:currmanufacturer.CompanyName)
                   });
                   ret.push({
-                        Bid_id:"2132435465768",
+                        Man_id:"21324354657632",
+                        Bid_id:"21324354657681",
                         Product:"Aluminium Sheets",
                         Vendor:"Golu Enterprises",
                         Unit:"Metric Tons",
