@@ -4,6 +4,7 @@ const Vonage = require('@vonage/server-sdk');
 const Manufacturer=require('../models/manufacturer');
 const Rpf=require('../models/rfp');
 const Agreement=require('../models/agreement');
+const Vendor=require('../models/vendor');
 const RegistrationUtil=require('../helpers/Registration-helper');
 const nodemailer=require('nodemailer');
 const axios = require('axios').default;
@@ -156,7 +157,15 @@ router.post('/agreements/upd',async (req,res)=>{
                         });
                   }
             }    
-            res.status(200).send(ret);
+            const allvendors=await Vendor.find({});
+            let s =new Set();
+            for(let i=0;i<allvendors.length;i++){
+                  for(let j=0;j<allvendors[i].Services.length;j++){
+                        s.add(allvendors[i].Services[j]);
+                  }
+            }
+            const services=Array.from(s);
+            res.status(200).send({ret,services});
       }catch(err){
             console.log(err);
             res.status(400).send();
