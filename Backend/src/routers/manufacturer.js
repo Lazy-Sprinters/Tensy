@@ -327,17 +327,17 @@ router.post('/manufacturer/openbids',async (req,res)=>{
                         Mode_Of_Delivery:o.Quote_ModeofDelivery,
                         Bidder:((o.Quote_owner==allopenbids[i].vendor)?selectedvendor.CompanyName:currmanufacturer.CompanyName)
                   });
-                  ret.push({
-                        Man_id:"21324354657632",
-                        Bid_id:"21324354657681",
-                        Product:"Aluminium Sheets",
-                        Vendor:"Golu Enterprises",
-                        Unit:"Metric Tons",
-                        Price_Per_Unit:"50000",
-                        Mode_Of_Delivery:"Self",
-                        Bidder:"Agarwal & Sons"  
-                  })
             }
+            ret.push({
+                  Man_id:"21324354657632",
+                  Bid_id:"21324354657681",
+                  Product:"Aluminium Sheets",
+                  Vendor:"Golu Enterprises",
+                  Unit:"Metric Tons",
+                  Price_Per_Unit:"50000",
+                  Mode_Of_Delivery:"Self",
+                  Bidder:"Agarwal & Sons"  
+            })
             console.log(ret);
             res.status(200).send(ret);
       }catch(err){
