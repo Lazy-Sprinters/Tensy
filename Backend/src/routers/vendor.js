@@ -236,19 +236,19 @@ router.post('/vendor/firstsubmitnego',async(req,res)=>{
             const newbid=new Bid({
                   vendor_id:Vendor_id,
                   manufacturer_id:Manufacturer_id,
-                  rfp_id:rfp_id
+                  rfp_id:rfp_id,
+                  All_negotiation:[],
+                  Status:false
             });
             const currrfp=await Rfp.findOne({_id:rfp_id});
-            currrfp.Action_taken.push({vendor_id:Vendor_id});
-            await currrfp.save();
-            newbid.All_negotiations=[];
-            newbid.Status=true;    
-            await newbid.All_negotiations.push({
+            await newbid.All_negotiation.push({
                   Quote_Cost_per_Unit:req.body.Price_Per_Unit,
                   Quote_ModeofDelivery:req.body.Mode_Of_Delivery,
                   Quote_Owner:Vendor_id
             })
             await newbid.save();
+            await currrfp.Action_taken.push({vendor_id:Vendor_id});
+            await currrfp.save();  
             res.status(200).send();
       }catch(err){
             console.log(err);

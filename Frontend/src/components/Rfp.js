@@ -125,6 +125,7 @@ export class Agr extends React.Component {
         <div className="home__hero-row">
           <CardComponent1
             flag={false}
+            DeadlineDate={value.DeadlineDate}
             onFinal={this.onFinal}
             onDelete={this.onDelete}
             onCurrent={this.onCurrent}
@@ -140,6 +141,7 @@ export class Agr extends React.Component {
           />
           <CardComponent1
             flag={false}
+            DeadlineDate={value1.DeadlineDate}
             onFinal={this.onFinal}
             onDelete={this.onDelete}
             onCurrent={this.onCurrent}
@@ -155,6 +157,7 @@ export class Agr extends React.Component {
           />
           <CardComponent1
             flag={false}
+            DeadlineDate={value2.DeadlineDate}
             onFinal={this.onFinal}
             onDelete={this.onDelete}
             onCurrent={this.onCurrent}
@@ -177,6 +180,7 @@ export class Agr extends React.Component {
         <div className="home__hero-row">
           <CardComponent1
             flag={false}
+            DeadlineDate={value.DeadlineDate}
             onFinal={this.onFinal}
             onDelete={this.onDelete}
             onCurrent={this.onCurrent}
@@ -200,6 +204,7 @@ export class Agr extends React.Component {
         <div className="home__hero-row">
           <CardComponent1
             flag={false}
+            DeadlineDate={value.DeadlineDate}
             onFinal={this.onFinal}
             onDelete={this.onDelete}
             onCurrent={this.onCurrent}
@@ -215,6 +220,7 @@ export class Agr extends React.Component {
           />
           <CardComponent1
             flag={false}
+            DeadlineDate={value1.DeadlineDate}
             onFinal={this.onFinal}
             onDelete={this.onDelete}
             onCurrent={this.onCurrent}

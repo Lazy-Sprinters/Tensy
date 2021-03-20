@@ -62,7 +62,8 @@ const retobj2=(allrfp,buttona)=>{
             EndDate:allrfp.EndDate,
             Total_Quantity:allrfp.Total_Quantity_required,
             Mode_Of_Delivery:allrfp.ModeofDelivery,
-            flag:buttona
+            flag:buttona,
+            DeadlineDate:allrfp.DeadlineDate
       }
       return obj;
 }; 

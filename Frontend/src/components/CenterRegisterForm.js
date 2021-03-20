@@ -274,8 +274,8 @@ export class CenterRegisterForm extends Component {
                 </div>
                 <div className="txtfld">
                 <TextField
-                  placeholder="Enter you Manufacturer ID"
-                  label="Manufacturer ID"
+                  placeholder="Enter you Vendor ID"
+                  label="Vendor ID"
                   variant="outlined"
                   onChange={this.handleChange('ManufacturerId')}
                   type="text"

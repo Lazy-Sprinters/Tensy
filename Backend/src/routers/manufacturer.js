@@ -33,11 +33,12 @@ const transporter=nodemailer.createTransport({
 router.post('/manufacturer/signup1',async (req,res)=>{
       // console.log(req.body);
       const manufacturer=new Manufacturer(req.body);
+      let coordinates=[];
       try{
             await manufacturer.save();
             manufacturer.Status=false;
             const response=await axios.get('https://geocode.search.hereapi.com/v1/geocode?q='+manufacturer.Address+'&apiKey='+process.env.API_KEY);
-            const coordinates=Object.values(response.data.items[0].position);
+            coordinates=Object.values(response.data.items[0].position);
             console.log(coordinates)
             if (coordinates.length!=0)
             {            
@@ -50,8 +51,15 @@ router.post('/manufacturer/signup1',async (req,res)=>{
                   res.status(400).send("Invalid Address");      
             }
       }catch(err){
-            console.log(err)
-            res.status(400).send(err);
+            if (coordinates.length==0)
+            {
+                  await Manufacturer.findOneAndDelete({Email:req.body.Email});
+                  res.status(400).send("Invalid Address");      
+            }
+            else{
+                  console.log(err)
+                  res.status(400).send(err);
+            }
       }
 });
 
@@ -217,17 +225,6 @@ router.post('/manufacturer/openrfps',async (req,res)=>{
                   showbuttons&=(Helper.comparedatecurr(allrfps[i].DeadlineDate)==0 ||Helper.comparedatecurr(allrfps[i].DeadlineDate)==0);
                   ret.push(Helper.retobj2(allrfps[i],showbuttons));
             }
-            ret.push({
-                  Rfp_id:"132435467",
-                  Product:"Alpha",
-                  Unit:"Kg",
-                  Price_Per_Unit:"765",
-                  StartDate:"2021-05-01",
-                  EndDate:"2021-12-01",
-                  Total_Quantity:"100000",
-                  Mode_Of_Delivery:"Expected from Vendor",
-                  flag:true
-            })
             res.status(200).send(ret);
       }catch(err){
             console.log(err);
@@ -310,6 +307,7 @@ router.post('/manufacturer/finalizedbids',async (req,res)=>{
 //Route-11:Sending all open bids
 router.post('/manufacturer/openbids',async (req,res)=>{
       try{
+            console.log(req.body);
             const allopenbids=await Bid.find({rfp_id:req.body.Rfp_id,Status:false});
             let ret=[];
             for(let i=0;i<allopenbids.length;i++){
@@ -328,16 +326,6 @@ router.post('/manufacturer/openbids',async (req,res)=>{
                         Bidder:((o.Quote_owner==allopenbids[i].vendor)?selectedvendor.CompanyName:currmanufacturer.CompanyName)
                   });
             }
-            ret.push({
-                  Man_id:"21324354657632",
-                  Bid_id:"21324354657681",
-                  Product:"Aluminium Sheets",
-                  Vendor:"Golu Enterprises",
-                  Unit:"Metric Tons",
-                  Price_Per_Unit:"50000",
-                  Mode_Of_Delivery:"Self",
-                  Bidder:"Agarwal & Sons"  
-            })
             console.log(ret);
             res.status(200).send(ret);
       }catch(err){

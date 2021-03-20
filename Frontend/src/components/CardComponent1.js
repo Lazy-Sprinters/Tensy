@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     transform: 'rotate(180deg)',
   },
 }));
-export default function CardComponent1({onFinal,onCurrent,onDelete,flag,data,data1,Product,Unit,Price_Per_Unit,StartDate,EndDate,Total_Quantity,Total_Cost,Mode_Of_Delivery,Vendor,Vendor_Address}) {
+export default function CardComponent1({onFinal,onCurrent,onDelete,flag,data,data1,Product,Unit,Price_Per_Unit,StartDate,EndDate,DeadlineDate,Total_Quantity,Total_Cost,Mode_Of_Delivery,Vendor,Vendor_Address}) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -61,8 +61,9 @@ export default function CardComponent1({onFinal,onCurrent,onDelete,flag,data,dat
          <b>Quantity : </b>{Total_Quantity} {Unit} 
          </Typography>
          <Typography variant="body1" color="textPrimary" component="p"className={classes.head}>
-         <b>Estimated Cost/Unit: </b> ₹{Price_Per_Unit}
+         <b>Estimated Cost/Unit: </b> ₹{Price_Per_Unit} / {Unit}
          </Typography>
+         
       {flag && 
         <Typography variant="body1" color="textPrimary" component="p"className={classes.head}>
          <b>Cost : </b> ₹{Total_Cost} 
@@ -85,6 +86,11 @@ export default function CardComponent1({onFinal,onCurrent,onDelete,flag,data,dat
         <Typography  style={{color:"black"}} component="p">
           <b>Duration Of RFP: </b>{StartDate} - {EndDate}
         </Typography>
+        {!flag &&
+          <Typography  style={{color:"black"}} component="p">
+            <b>Deadline Of RFP: </b>{DeadlineDate}
+          </Typography>
+        }
       </CardContent>
       <CardActions disableSpacing>
       {!flag &&
