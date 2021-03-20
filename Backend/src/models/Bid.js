@@ -3,6 +3,7 @@ const mongoose=require('mongoose');
 const BidSchema=mongoose.Schema({
       Status:{
             type:Boolean
+            //false->open true->finalized
       },
       vendor_id:{
             type:mongoose.Schema.Types.ObjectId,
@@ -19,9 +20,6 @@ const BidSchema=mongoose.Schema({
       All_negotiation:[{
             Quote_Cost_per_Unit:{
                   type:Number
-            },
-            Quote_EndDate:{
-                  type:String
             },
             Quote_ModeofDelivery:{
                   type:String
