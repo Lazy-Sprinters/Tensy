@@ -5,7 +5,6 @@ const Vonage = require('@vonage/server-sdk');
 const nodemailer=require('nodemailer');
 const Manufacturer=require('../models/manufacturer');
 const Vendor=require('../models/vendor');
-const Rpf=require('../models/rfp');
 const Agreement=require('../models/agreement');
 const Helper=require('../helpers/helper');
 const axios = require('axios').default;
@@ -156,7 +155,7 @@ router.post('/vendor/agreements',async(req,res)=>{
 router.post('/vendor/list',async (req,res)=>{
       try{
             let s1=new Set(req.body.Services);
-            const allrfps=await Rpf.find({});
+            const allrfps=await Rfp.find({});
             let s2=new Set();
             for(let i=0;i<allrfps.length;i++){
                   s2.add(allrfps[i].Product_Name);
@@ -206,7 +205,8 @@ router.post('/vendor/allvalidrfps',async (req,res)=>{
 //Route-7: Accepting a bid and changing status
 router.post('/vendor/firstacceptforconsideration',async (req,res)=>{
       try{
-            const rfp_id=req.body.Rpf_id;
+
+            const rfp_id=req.body.Rfp_id;
             const Vendor_id=req.body.Vendor_id;
             const Manufacturer_id=req.body.Manufacturer_id;
             const newbid=new Bid({
@@ -229,7 +229,8 @@ router.post('/vendor/firstacceptforconsideration',async (req,res)=>{
 //Route-8 Proposing a negotiation
 router.post('/vendor/firstsubmitnego',async(req,res)=>{
       try{
-            const rfp_id=req.body.Rpf_id;
+            console.log(req.body)
+            const rfp_id=req.body.Rfp_id;
             const Vendor_id=req.body.Vendor_id;
             const Manufacturer_id=req.body.Manufacturer_id;
             const newbid=new Bid({
@@ -240,12 +241,14 @@ router.post('/vendor/firstsubmitnego',async(req,res)=>{
             const currrfp=await Rfp.findOne({_id:rfp_id});
             currrfp.Action_taken.push({vendor_id:Vendor_id});
             await currrfp.save();
+            newbid.All_negotiations=[];
             newbid.Status=true;    
-            newbid.All_negotiations.push({
+            await newbid.All_negotiations.push({
                   Quote_Cost_per_Unit:req.body.Price_Per_Unit,
                   Quote_ModeofDelivery:req.body.Mode_Of_Delivery,
                   Quote_Owner:Vendor_id
             })
+            await newbid.save();
             res.status(200).send();
       }catch(err){
             console.log(err);
