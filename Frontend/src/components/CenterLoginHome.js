@@ -143,9 +143,9 @@ export class CenterLoginHome extends Component {
           />
           <CardComponent2
             flag={true}
-            DeadlineDate={value.DeadlineDate}
-            Vendor={value.Manufacturer}
-            Vendor_Address={value.Manufacturer_Address}
+            DeadlineDate={value1.DeadlineDate}
+            Vendor={value1.Manufacturer}
+            Vendor_Address={value1.Manufacturer_Address}
             onAcc={this.onAcc}
             onNego={this.onNego}
             data={value1}
@@ -160,9 +160,9 @@ export class CenterLoginHome extends Component {
           />
           <CardComponent2
             flag={true}
-            DeadlineDate={value.DeadlineDate}
-            Vendor={value.Manufacturer}
-            Vendor_Address={value.Manufacturer_Address}
+            DeadlineDate={value2.DeadlineDate}
+            Vendor={value2.Manufacturer}
+            Vendor_Address={value2.Manufacturer_Address}
             onAcc={this.onAcc}
             onNego={this.onNego}
             data={value2}
@@ -226,9 +226,9 @@ export class CenterLoginHome extends Component {
           />
           <CardComponent2
             flag={true}
-            DeadlineDate={value.DeadlineDate}
-            Vendor={value.Manufacturer}
-            Vendor_Address={value.Manufacturer_Address}
+            DeadlineDate={value1.DeadlineDate}
+            Vendor={value1.Manufacturer}
+            Vendor_Address={value1.Manufacturer_Address}
             onAcc={this.onAcc}
             onNego={this.onNego}
             data={value1}

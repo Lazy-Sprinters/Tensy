@@ -30,7 +30,7 @@ export class selectionPage1 extends Component {
   };
   curr = (x) =>{
     this.setState({auth:false});
-    const data={Rfp_id:x.Rfp_id};
+    const data={Rfp_id:x};
      Axios.post("http://localhost:5000/manufacturer/openbids",data)
       .then((res) => {
         console.log(res);
