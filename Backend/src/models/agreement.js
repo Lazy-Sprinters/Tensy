@@ -51,11 +51,11 @@ const aggreementSchema=mongoose.Schema({
             type:String,
             required:true
       },
-      Manufacturer:{
+      Vendor:{
             type:String,
             required:true,
       },
-      Manufacturer_Address:{
+      Vendor_Address:{
             type:String,
             required:true
       },

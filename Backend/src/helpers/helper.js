@@ -36,4 +36,20 @@ const retobj=(allappointments)=>{
       return obj;
 }; 
 
-module.exports={comparedatecurr,retobj};
+const retobj1=(allappointments)=>{
+      const obj={
+            Product:allappointments.Product_Name,
+            Unit:allappointments.Unit,
+            Price_Per_Unit:allappointments.Cost_per_Unit,
+            StartDate:allappointments.StartDate,
+            EndDate:allappointments.EndDate,
+            Total_Quantity:allappointments.Total_Quantity_required,
+            Total_Cost:allappointments.Total_Quantity_required*allappointments.Cost_per_Unit,           
+            Mode_Of_Delivery:allappointments.ModeofDelivery,
+            Manufacturer:allappointments.Manufacturer,
+            Manufacturer_Address:allappointments.Manufacturer_Address
+      }
+      return obj;
+}; 
+
+module.exports={comparedatecurr,retobj,retobj1};

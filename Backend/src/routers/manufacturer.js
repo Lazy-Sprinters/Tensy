@@ -9,9 +9,7 @@ const RegistrationUtil=require('../helpers/Registration-helper');
 const Helper=require('../helpers/helper');
 const nodemailer=require('nodemailer');
 const axios = require('axios').default;
-const bcrypt=require('bcryptjs');
 const path=require('path');
-const { start } = require('repl');
 
 require('dotenv').config({path:path.resolve(__dirname, '../../.env') });
 
@@ -175,33 +173,33 @@ router.post('/agreements/upd',async (req,res)=>{
 })
 
 //Route-7:Sending all the current contracts
-router.post('/manufacturer/allcontracts',async (req,res)=>{
-      try{
-            const allaggreements=await Agreement.find({Manufacturer_id:req.body.id});
-            let ret=[];
-            for(let i=0;i<allaggreements.length;i++)
-            {
-                  const date1=new Date();
-                  const newdate=new Date(allaggreements[i].EndDate);
-                  const tdiff=newdate.getTime()-date1.getTime();
-                  const ddiff=tdiff/(1000*3600*24);
-                  if (ddiff>=0)
-                  {     
-                        ret.push(allaggreements[i]);
-                  }
-            }
-            res.status(200).send(ret);
-      }catch(err){
-            console.log(err);
-            res.status(400).send();
-      }
-})
+// router.post('/manufacturer/allcontracts',async (req,res)=>{
+//       try{
+//             const allaggreements=await Agreement.find({Manufacturer_id:req.body.id});
+//             let ret=[];
+//             for(let i=0;i<allaggreements.length;i++)
+//             {
+//                   const date1=new Date();
+//                   const newdate=new Date(allaggreements[i].EndDate);
+//                   const tdiff=newdate.getTime()-date1.getTime();
+//                   const ddiff=tdiff/(1000*3600*24);
+//                   if (ddiff>=0)
+//                   {     
+//                         ret.push(allaggreements[i]);
+//                   }
+//             }
+//             res.status(200).send(ret);
+//       }catch(err){
+//             console.log(err);
+//             res.status(400).send();
+//       }
+// })
 /*
 Live_Agreements
 Upcoming_Agreements
 Completed_Agreements
 */ 
-// Route-8: Sending all kind of appointments
+// Route-7: Sending all kind of appointments
 router.post('/manufacturer/agreements',async(req,res)=>{
       try{
             const allagreements=await Agreement.find({Manufacturer_id:req.body.id});
@@ -228,7 +226,9 @@ router.post('/manufacturer/agreements',async(req,res)=>{
       }
 })
 
-//Route-13:Logging a user out
+//Route-9:All active rfps
+
+//Route-10:Logging a user out
 router.post('/manufacturer/logout',async (req,res)=>{
       try{          
             req.user.RecentEmailOtps=[];
