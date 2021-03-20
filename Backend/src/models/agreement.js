@@ -9,6 +9,10 @@ const aggreementSchema=mongoose.Schema({
             type:mongoose.Schema.Types.ObjectId,
             required:true
       },
+      rfpid:{
+            type:mongoose.Schema.Types.ObjectId,
+            required:true
+      },
       Product_Name:{
             type:String,
             trim:true,
