@@ -131,7 +131,7 @@ router.post('/rfp/new',async (req,res)=>{
             const rpf=new Rpf(req.body);
             await rpf.save();
             res.status(201).send(rpf);
-      }catch{
+      }catch(err){
             console.log(err);
             res.status(400).send();
       }
