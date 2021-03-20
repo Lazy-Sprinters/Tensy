@@ -7,7 +7,7 @@ import CenterVerify from './components/CenterVerify';
 import CenterRegister from './components/CenterRegister';
 import Login from './components/Login';
 import CenterLogin from './components/CenterLogin';
-/*import CenterRfp from './components/CenterRfp';*/
+import CenterRfp from './components/CenterRfp';
 import LoginHome from './components/LoginHome';
 import CenterLoginHome from './components/CenterLoginHome';
 import CenterAgr from './components/CenterAgr';
@@ -29,7 +29,7 @@ function App() {
           <Route path='/centerVerify' exact component={CenterVerify} />
           <Route path='/login' exact component={Login} />
           <Route path='/centerLogin' exact component={CenterLogin} />
-          {/*<Route path='/centerRfp' exact component={CenterRfp} />*/}
+          <Route path='/centerRfp' exact component={CenterRfp} />
           <Route path='/centerLoginHome' exact component={CenterLoginHome} />
           <Route path='/centerAgr' exact component={CenterAgr} />
           <Route path='/loginHome' exact component={LoginHome} />

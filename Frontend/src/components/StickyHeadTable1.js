@@ -46,8 +46,10 @@ export default function StickyHeadTable({arr,accept,handleModal}) {
   const convertToRows = (x) => {
     setStart(false);
     let ans = []; 
+    console.log(x)
     if( x==undefined || x.length==0 ){
       handleModal(true);
+      console.log(x)
       ans.push(createData("No Contracts Found","-","-","-","-","-","-","-"));
       setRows(ans);
     }

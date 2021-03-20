@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     transform: 'rotate(180deg)',
   },
 }));
-export default function CardComponent1({onFinal,onCurrent,onDelete,flag,data,data1,Product,Unit,Price_Per_Unit,StartDate,EndDate,DeadlineDate,Total_Quantity,Total_Cost,Mode_Of_Delivery,Vendor,Vendor_Address}) {
+export default function CardComponent1({onFinal,onCurrent,onDelete,flag,flag1,data,data1,Product,Unit,Price_Per_Unit,StartDate,EndDate,DeadlineDate,Total_Quantity,Total_Cost,Mode_Of_Delivery,Vendor,Vendor_Address}) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -86,14 +86,14 @@ export default function CardComponent1({onFinal,onCurrent,onDelete,flag,data,dat
         <Typography  style={{color:"black"}} component="p">
           <b>Duration Of RFP: </b>{StartDate} - {EndDate}
         </Typography>
-        {!flag &&
+        {!flag && !data.flag &&
           <Typography  style={{color:"black"}} component="p">
             <b>Deadline Of RFP: </b>{DeadlineDate}
           </Typography>
         }
       </CardContent>
       <CardActions disableSpacing>
-      {!flag &&
+      {!flag && !flag1 &&
         <>
           <Button disabled={!data.flag} style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}} variant="success" onClick={() => onCurrent(data)}>
             Current Bids
@@ -104,6 +104,22 @@ export default function CardComponent1({onFinal,onCurrent,onDelete,flag,data,dat
           <Button style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}} variant="success" onClick={() => onFinal(data)}>
             Finalized Bids
           </Button>
+          </>
+        }
+        {!flag && flag1 &&
+          <>
+            data.flag && <Button  style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}} variant="success" onClick={() => onCurrent(data)}>
+                          Negotiate
+                        </Button>
+          <Button style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}} variant="success" onClick={() => onDelete(data)}>
+            Cancel RFP
+          </Button>
+          data.flag && <Button style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}} variant="success" onClick={() => onFinal(data)}>
+                        Accept
+                      </Button>
+          !data.flag && <Button disabled={true} style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}} variant="success">
+                        Waiting For Response
+                      </Button>
           </>
         }
         {/*
