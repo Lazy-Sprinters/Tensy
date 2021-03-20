@@ -5,6 +5,7 @@ const Manufacturer=require('../models/manufacturer');
 const Rpf=require('../models/rfp');
 const Agreement=require('../models/agreement');
 const Vendor=require('../models/vendor');
+const Bid=require('../models/Bid');
 const RegistrationUtil=require('../helpers/Registration-helper');
 const Helper=require('../helpers/helper');
 const nodemailer=require('nodemailer');
@@ -235,10 +236,70 @@ router.post('/manufacturer/openrfps',async (req,res)=>{
 //Route-9:Deleting an rfp and subsequently all its active bids and open bids
 router.post('/manufacturer/deleterfp',async (req,res)=>{
       try{
-            // const 
+            await Rpf.deleteOne({_id:req.body.Rfp_id});
+            await Bid.deleteMany({rfp_id:req.body.rfp_id});
+            res.status(200).send();
       }catch(err){
             console.log(err);
             res.status(400).send();
+      }
+})
+
+// Route-10:Sending all finalized bids
+router.post('/manufacturer/finalizedbids',async (req,res)=>{
+      try{
+            const allfinalbids=await Bid.find({rfp_id:req.body.Rfp_id,Status:true});
+            let ret=[];
+            const rfp=await Rpf.findOne({_id:req.body.Rfp_id});
+            const flag1=(Helper.comparedatecurr(rfp.DeadlineDate)==1);
+            for(let i=0;i<allfinalbids.length;i++)
+            { 
+                  if (allfinalbids[i].All_negotiation.length==0)
+                  {
+                        //vendor straight away accepted the proposal
+                        const v=await Vendor.findOne({_id:allfinalbids[i].vendor_id});
+                        ret.push({
+                              Product:rfp.Product_Name,
+                              Quantity:rfp.Total_Quantity_required,
+                              Price_Per_Unit:rfp.Cost_per_Unit,
+                              vendor:v.CompanyName,
+                              EndDate:rfp.EndDate,
+                              StartDate:rfp.StartDate,
+                              Mode_of_Delivery:rfp.ModeofDelivery,
+                              flag:flag1
+                        });
+                  }
+                  else
+                  {
+                        const v=await Vendor.findOne({_id:allfinalbids[i].vendor_id});
+                        const o=allfinalbids[allfinalbids.length-1];
+                        ret.push({
+                              Product:rfp.Product_Name,
+                              Quantity:rfp.Total_Quantity_required,
+                              Price_Per_Unit:o.Quote_Cost_per_Unit,
+                              vendor:v.CompanyName,
+                              EndDate:rfp.EndDate,
+                              StartDate:rfp.StartDate,
+                              Mode_of_Delivery:o.Quote_ModeofDelivery,
+                              flag:flag1
+                        })
+                  }
+            }
+            res.status(200).send(ret);
+      }catch(err){
+            console.log(err);
+            res.status(200).send();
+      }
+})
+
+//Route-11:Sending all open bids
+router.post('/manufacturer/openbids',async (req,res)=>{
+      try{
+            const allopenbids=await Bid.find({rfp_id:req.body.Rfp_id,Status:false});
+            res.status(200).send(allopenbids);
+      }catch(err){
+            console.log(err);
+            res.status(200).send();
       }
 })
 

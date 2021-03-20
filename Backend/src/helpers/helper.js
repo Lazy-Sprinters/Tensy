@@ -67,4 +67,19 @@ const retobj2=(allrfp,buttona)=>{
       return obj;
 }; 
 
-module.exports={comparedatecurr,retobj,retobj1,retobj2};
+const retobj3=(allrfp,buttona)=>{
+      const obj={
+            Rfp_id:allrfp._id,
+            Product:allrfp.Product_Name,
+            Unit:allrfp.Unit,
+            Price_Per_Unit:allrfp.Cost_per_Unit,
+            StartDate:allrfp.StartDate,
+            EndDate:allrfp.EndDate,
+            Total_Quantity:allrfp.Total_Quantity_required,
+            Mode_Of_Delivery:allrfp.ModeofDelivery,
+            flag:buttona
+      }
+      return obj;
+}; 
+
+module.exports={comparedatecurr,retobj,retobj1,retobj2,retobj3};
