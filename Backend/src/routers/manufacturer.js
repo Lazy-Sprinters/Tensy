@@ -172,28 +172,6 @@ router.post('/agreements/upd',async (req,res)=>{
       }
 })
 
-//Route-7:Sending all the current contracts
-// router.post('/manufacturer/allcontracts',async (req,res)=>{
-//       try{
-//             const allaggreements=await Agreement.find({Manufacturer_id:req.body.id});
-//             let ret=[];
-//             for(let i=0;i<allaggreements.length;i++)
-//             {
-//                   const date1=new Date();
-//                   const newdate=new Date(allaggreements[i].EndDate);
-//                   const tdiff=newdate.getTime()-date1.getTime();
-//                   const ddiff=tdiff/(1000*3600*24);
-//                   if (ddiff>=0)
-//                   {     
-//                         ret.push(allaggreements[i]);
-//                   }
-//             }
-//             res.status(200).send(ret);
-//       }catch(err){
-//             console.log(err);
-//             res.status(400).send();
-//       }
-// })
 /*
 Live_Agreements
 Upcoming_Agreements
@@ -226,9 +204,45 @@ router.post('/manufacturer/agreements',async(req,res)=>{
       }
 })
 
-//Route-9:All active rfps
+//Route-8:All active rfps
+router.post('/manufacturer/openrfps',async (req,res)=>{
+      try{
+            const allrfps=await Rpf.find({Manufacturer_id:req.body.id});
+            let ret=[];
+            for(let i=0;i<allrfps.length;i++){
+                  let showbuttons=true;
+                  showbuttons&=(Helper.comparedatecurr(allrfps[i].DeadlineDate)==0 ||Helper.comparedatecurr(allrfps[i].DeadlineDate)==0);
+                  ret.push(Helper.retobj2(allrfps[i],showbuttons));
+            }
+            ret.push({
+                  Rfp_id:"132435467",
+                  Product:"Alpha",
+                  Unit:"Kg",
+                  Price_Per_Unit:"765",
+                  StartDate:"2021-05-01",
+                  EndDate:"2021-12-01",
+                  Total_Quantity:"100000",
+                  Mode_Of_Delivery:"Expected from Vendor",
+                  flag:true
+            })
+            res.status(200).send(ret);
+      }catch(err){
+            console.log(err);
+            res.status(400).send();
+      }
+})
 
-//Route-10:Logging a user out
+//Route-9:Deleting an rfp and subsequently all its active bids and open bids
+router.post('/manufacturer/deleterfp',async (req,res)=>{
+      try{
+            // const 
+      }catch(err){
+            console.log(err);
+            res.status(400).send();
+      }
+})
+
+//Route-9:Logging a user out
 router.post('/manufacturer/logout',async (req,res)=>{
       try{          
             req.user.RecentEmailOtps=[];
