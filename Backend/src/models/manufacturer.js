@@ -38,12 +38,6 @@ const ManufacturerSchema=mongoose.Schema({
       Status:{
             type:Boolean //true means activated ;;false means not activated
       },
-      tokens:[{
-            token:{
-                  type:String,
-                  required:true
-            }
-      }],
       Address:{
             type:String,
             required:true

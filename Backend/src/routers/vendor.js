@@ -10,6 +10,8 @@ const Agreement=require('../models/agreement');
 const Helper=require('../helpers/helper');
 const axios = require('axios').default;
 const path=require('path');
+const Rfp = require('../models/rfp');
+const Bid = require('../models/Bid');
 
 require('dotenv').config({path:path.resolve(__dirname, '../../.env') });
 
@@ -163,7 +165,90 @@ router.post('/vendor/list',async (req,res)=>{
             const ret=Array.from(intersetion);
             res.send(200).send(ret);
       }catch(err){
+            console.log(err);
+            res.status(400).send();
+      }
+})
 
+//Route-6:Giving out all cards
+router.post('/vendor/allvalidrfps',async (req,res)=>{
+      try{  
+            const allsemivalidrfps=await Rfp.find({Product_Name:req.body.Product});
+            let ret=[];
+            for(let i=0;i<allsemivalidrfps.length;i++){
+                  let found=allsemivalidrfps[i].Action_taken.find(e=>(e.vendor_id==req.body.Vendor_id));
+                  if (found==undefined)
+                  {
+                        const currmanu=await Manufacturer.findOne({_id:allsemivalidrfps[i].Manufacturer_id});
+                        ret.push({
+                              Product:allsemivalidrfps[i].Product_Name,
+                              Unit:allsemivalidrfps[i].Unit,
+                              Price_Per_Unit:allsemivalidrfps[i].Cost_per_Unit,
+                              StartDate:allsemivalidrfps[i].StartDate,
+                              EndDate:allsemivalidrfps[i].EndDate,
+                              Total_Quantity:allsemivalidrfps[i].Total_Quantity_required,
+                              Mode_Of_Delivery:allsemivalidrfps[i].ModeofDelivery,
+                              Manufacturer:currmanu.CompanyName,
+                              Manufacturer_Address:currmanu.Address,     
+                              Manufacturer_id:allsemivalidrfps[i].Manufacturer_id,
+                              Rfp_id:allsemivalidrfps[i]._id        
+                        })
+                  }
+            }
+            res.status(200).send(ret);
+      }catch(err){
+            console.log(err);
+            res.status(400).send();
+      } 
+})
+
+//Route-7: Accepting a bid and changing status
+router.post('/vendor/firstacceptforconsideration',async (req,res)=>{
+      try{
+            const rfp_id=req.body.Rpf_id;
+            const Vendor_id=req.body.Vendor_id;
+            const Manufacturer_id=req.body.Manufacturer_id;
+            const newbid=new Bid({
+                  vendor_id:Vendor_id,
+                  manufacturer_id:Manufacturer_id,
+                  rfp_id:rfp_id
+            });
+            const currrfp=await Rfp.findOne({_id:rfp_id});
+            currrfp.Action_taken.push({vendor_id:Vendor_id});
+            await currrfp.save();
+            newbid.Status=true;    
+            await newbid.save();
+            res.status(200).send();
+      }catch(err){
+            console.log(err);
+            res.status(400).send();
+      }
+})
+
+//Route-8 Proposing a negotiation
+router.post('/vendor/firstsubmitnego',async(req,res)=>{
+      try{
+            const rfp_id=req.body.Rpf_id;
+            const Vendor_id=req.body.Vendor_id;
+            const Manufacturer_id=req.body.Manufacturer_id;
+            const newbid=new Bid({
+                  vendor_id:Vendor_id,
+                  manufacturer_id:Manufacturer_id,
+                  rfp_id:rfp_id
+            });
+            const currrfp=await Rfp.findOne({_id:rfp_id});
+            currrfp.Action_taken.push({vendor_id:Vendor_id});
+            await currrfp.save();
+            newbid.Status=true;    
+            newbid.All_negotiations.push({
+                  Quote_Cost_per_Unit:req.body.Price_Per_Unit,
+                  Quote_ModeofDelivery:req.body.Mode_Of_Delivery,
+                  Quote_Owner:Vendor_id
+            })
+            res.status(200).send();
+      }catch(err){
+            console.log(err);
+            res.status(400).send();
       }
 })
 

@@ -47,7 +47,7 @@ const rfpSchema=mongoose.Schema({
             type:String,
             required:true
       },
-      Uninterested_users:[{
+      Action_taken:[{
             vendor_id:{
                   type:mongoose.Schema.Types.ObjectId
             }

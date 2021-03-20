@@ -43,10 +43,6 @@ const VendorSchema=mongoose.Schema({
             required:true
       },
       Services:[String],
-      innegotiation:{
-            type:Boolean,
-            required:true
-      }
 });
 
 //Adding below options will automatically hide all auth-related data for the user
