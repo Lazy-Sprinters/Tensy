@@ -150,6 +150,23 @@ router.post('/vendor/agreements',async(req,res)=>{
       }
 })
 
+//Route-6: 
+router.post('/vendor/list',async (req,res)=>{
+      try{
+            let s1=new Set(req.body.Services);
+            const allrfps=await Rpf.find({});
+            let s2=new Set();
+            for(let i=0;i<allrfps.length;i++){
+                  s2.add(allrfps[i].Product_Name);
+            }
+            let intersetion=new Set([...s1].filter(i=>s2.has(i)));
+            const ret=Array.from(intersetion);
+            res.send(200).send(ret);
+      }catch(err){
+
+      }
+})
+
 //Route-6:Logging a user out
 router.post('/vendor/logout',async (req,res)=>{
       try{
