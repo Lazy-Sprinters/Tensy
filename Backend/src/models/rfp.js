@@ -43,42 +43,15 @@ const rfpSchema=mongoose.Schema({
             type:String,
             required:true
       },
-      Negotiation_count:[{
-            vendor_id:{
-                  type:mongoose.Schema.Types.ObjectId,
-            },
-            count:{
-                  type:Number,
-                  default:5
-            }
-      }],
-      Most_Recent_Negotiation:[{
-            Quote_Cost_per_Unit:{
-                  type:Number
-            },
-            Quote_EndDate:{
-                  type:String
-            },
-            Quote_ModeofDelivery:{
-                  type:String
-            },
-            owner_Cost_per_Unit:{
-                  type:Number
-            },
-            owner_EndDate:{
-                  type:String
-            },
-            owner_Quantity:{
-                  type:Number
-            },
-            Quote_owner:{
-                  type:mongoose.Schema.Types.ObjectId
-            }
-      }],
       Status:{
             type:String,
             required:true
-      }
+      },
+      Uninterested_users:[{
+            vendor_id:{
+                  type:mongoose.Schema.Types.ObjectId
+            }
+      }]
 });
 
 const Rfp=mongoose.model('Rfp',rfpSchema);

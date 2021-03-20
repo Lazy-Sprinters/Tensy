@@ -38,21 +38,18 @@ const VendorSchema=mongoose.Schema({
       Status:{
             type:Boolean //true means activated ;;false means not activated
       },
-      tokens:[{
-            token:{
-                  type:String,
-                  required:true
-            }
-      }],
       Address:{
             type:String,
             required:true
       },
-      Services:[String]
+      Services:[String],
+      innegotiation:{
+            type:Boolean,
+            required:true
+      }
 });
 
 //Adding below options will automatically hide all auth-related data for the user
-
 VendorSchema.methods.toJSON=function(){
       const vendor=this;
       const vendorobj=vendor.toObject();
@@ -62,14 +59,6 @@ VendorSchema.methods.toJSON=function(){
       // delete vendorobj.RecentMobileOtps;
       // delete vendorobj.RecentEmailOtps;
       return vendorobj;
-}
-
-VendorSchema.methods.generateauthtoken=async function(){
-      const ven=this;
-      const token=jwt.sign({_id:ven._id.toString()},'Sprinting');
-      ven.tokens=ven.tokens.concat({token: token});
-      await ven.save();
-      return token;
 }
 
 VendorSchema.statics.findbycredentials=async (email,password)=>{

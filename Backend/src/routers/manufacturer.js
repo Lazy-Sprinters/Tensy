@@ -6,10 +6,12 @@ const Rpf=require('../models/rfp');
 const Agreement=require('../models/agreement');
 const Vendor=require('../models/vendor');
 const RegistrationUtil=require('../helpers/Registration-helper');
+const Helper=require('../helpers/helper');
 const nodemailer=require('nodemailer');
 const axios = require('axios').default;
 const bcrypt=require('bcryptjs');
 const path=require('path');
+const { start } = require('repl');
 
 require('dotenv').config({path:path.resolve(__dirname, '../../.env') });
 
@@ -194,21 +196,48 @@ router.post('/manufacturer/allcontracts',async (req,res)=>{
             res.status(400).send();
       }
 })
+/*
+Live_Agreements
+Upcoming_Agreements
+Completed_Agreements
+*/ 
+// Route-8: Sending all kind of appointments
+router.post('/manufacturer/agreements',async(req,res)=>{
+      try{
+            const allagreements=await Agreement.find({Manufacturer_id:req.body.id});
+            let Live_Agreements=[],Upcoming_Agreements=[],Completed_Agreements=[];
+            for(let i=0;i<allagreements.length;i++){
+                  const startdate=allagreements[i].StartDate;
+                  const enddate=allagreements[i].EndDate;
+                  if (Helper.comparedatecurr(startdate)==0)
+                  {
+                        Upcoming_Agreements.push(Helper.retobj(allagreements[i]));
+                  }
+                  else if (Helper.comparedatecurr(enddate)==1)
+                  {
+                        Completed_Agreements.push(Helper.retobj(allagreements[i]));
+                  }
+                  else{
+                        Live_Agreements.push(Helper.retobj(allagreements[i]));
+                  }
+            }
+      }catch(err){
+            console.log(err);
+            res.status(400).send();
+      }
+})
 
-
-// //Route-13:Logging a user out
-// router.post('/user/logout',Authmiddleware,async (req,res)=>{
-//       try{
-//             // console.log(req.user);
-//             req.user.tokens=[];
-//             req.user.RecentEmailOtps=[];
-//             req.user.RecentMobileOtps=[];
-//             await req.user.save();
-//             res.status(200).send();
-//       }catch(err){
-//             console.log(err);
-//             res.status(400).send(err);
-//       }
-// })
+//Route-13:Logging a user out
+router.post('/manufacturer/logout',async (req,res)=>{
+      try{          
+            req.user.RecentEmailOtps=[];
+            req.user.RecentMobileOtps=[];
+            await req.user.save();
+            res.status(200).send();
+      }catch(err){
+            console.log(err);
+            res.status(400).send(err);
+      }
+})
 
 module.exports =router;

@@ -39,10 +39,6 @@ const aggreementSchema=mongoose.Schema({
             type:Number,
             required:true
       },
-      DeadlineDate:{
-            type:String,
-            required:true
-      }, 
       ModeofDelivery:{
             type:String,
             required:true
@@ -51,9 +47,18 @@ const aggreementSchema=mongoose.Schema({
             type:String,
             required:true,
       },
-      Status:{
-            type:Boolean
-      }
+      Manufacturer_Address:{
+            type:String,
+            required:true
+      },
+      Manufacturer:{
+            type:String,
+            required:true,
+      },
+      Manufacturer_Address:{
+            type:String,
+            required:true
+      },
 });
 
 const Agreement=mongoose.model('Agreement',aggreementSchema);
