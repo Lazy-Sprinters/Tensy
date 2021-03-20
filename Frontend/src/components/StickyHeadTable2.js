@@ -108,7 +108,7 @@ export default function StickyHeadTable({arr,finalize,negotiate,handleModal}) {
                         <Button 
                           variant="success"
                           onClick={() => negotiate(value)}
-                          style={{boxShadow:'0px 0px 14px 0.3px bisque' , backgroundColor:'white',color:'black',border:"5px solid bisque",marginBottom:"5vh"}}
+                          style={{boxShadow:'0px 0px 14px 0.3px bisque' , backgroundColor:'white',color:'black',border:"5px solid bisque",marginBottom:"0vh"}}
                         >
                           Negotiate
                         </Button>
@@ -121,7 +121,7 @@ export default function StickyHeadTable({arr,finalize,negotiate,handleModal}) {
                         <Button 
                           variant="success"
                           onClick={() => finalize(value)}
-                          style={{boxShadow:'0px 0px 14px 0.3px bisque' , backgroundColor:'white',color:'black',border:"5px solid bisque",marginBottom:"5vh"}}
+                          style={{boxShadow:'0px 0px 14px 0.3px bisque' , backgroundColor:'white',color:'black',border:"5px solid bisque",marginBottom:"0vh"}}
                         >
                           Accept
                         </Button>

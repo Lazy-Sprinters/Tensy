@@ -38,6 +38,7 @@ export class selectionPage1 extends Component {
         console.log(res);
         // this.handleSearch(res);
         this.setState({list:res.data});
+        this.setState({auth1:true})
       })
       .catch((err) => {
           console.log("Axios", err.message);
@@ -115,7 +116,9 @@ export class selectionPage1 extends Component {
       <LoginNavbar            
       userInfo={this.props.userInfo}                  /* tochange */
       />
+      {auth1 &&
       <StickyHeadTable1 arr={list} accept={this.accept} handleModal={this.handleModal}/>
+      }
       {proceedToHome && (
         <Redirect
             push

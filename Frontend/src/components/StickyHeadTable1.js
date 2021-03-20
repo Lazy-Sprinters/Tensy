@@ -109,7 +109,7 @@ export default function StickyHeadTable({arr,accept,handleModal}) {
                           variant="success"
                           disabled={!value.flag}
                           onClick={() => accept(value)}
-                          style={{boxShadow:'0px 0px 14px 0.3px bisque' , backgroundColor:'white',color:'black',border:"5px solid bisque",marginBottom:"5vh"}}
+                          style={{boxShadow:'0px 0px 14px 0.3px bisque' , backgroundColor:'white',color:'black',border:"5px solid bisque",marginBottom:"0vh"}}
                         >
                           Confirm
                         </Button>
