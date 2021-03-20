@@ -128,7 +128,7 @@ router.post('/manufacturer/newotps',async (req,res)=>{
 //Route-5:Creating a new rfp
 router.post('/rfp/new',async (req,res)=>{
       try{
-            console.log(req.body);
+            // console.log(req.body);
             const rpf=new Rpf(req.body);
             await rpf.save();
             res.status(201).send(rpf);
@@ -207,10 +207,10 @@ router.post('/manufacturer/agreements',async(req,res)=>{
 
 //Route-8:All active rfps
 router.post('/manufacturer/openrfps',async (req,res)=>{
-      console.log(req.body.id)
+      // console.log(req.body.id)
       try{
             const allrfps=await Rpf.find({Manufacturer_id:req.body.id});
-            console.log(allrfps)
+            // console.log(allrfps)
             let ret=[];
             for(let i=0;i<allrfps.length;i++){
                   let showbuttons=true;
@@ -385,10 +385,37 @@ router.post('/manufacturer/acceptbid',async(req,res)=>{
       }
 })
 
-//Route-13: Current Bid
+//Route-13: Accepting a bid and changing status
+router.post('/manufacturer/acceptforconsideration',async (req,res)=>{
+      try{
+            const currbid=await Bid.findOne({_id:Bid_id});
+            currbid.Status=true;
+            await currbid.save();
+            res.status(200).send();
+      }catch(err){
+            console.log(err);
+            res.status(400).send();
+      }
+})
 
+//Route-14 Proposing a negotiation
+router.post('/manufacturer/submitnego',async(req,res)=>{
+      try{
+            const currbid=await Bid.findOne({_id:Bid_id});
+            await currbid.All_negotiation.push({
+                  Quote_Cost_per_Unit:Price_Per_Unit,
+                  Quote_ModeofDelivery:Mode_Of_Delivery,
+                  Quote_owner:Man_id
+            });
+            currbid.save();
+            res.status(200).send();
+      }catch(err){
+            console.log(err);
+            res.status(400).send();
+      }
+})
 
-//Route-9:Logging a user out
+//Route-15:Logging a user out
 router.post('/manufacturer/logout',async (req,res)=>{
       try{          
             req.user.RecentEmailOtps=[];
