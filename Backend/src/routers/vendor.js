@@ -163,7 +163,7 @@ router.post('/vendor/list',async (req,res)=>{
             }
             let intersetion=new Set([...s1].filter(i=>s2.has(i)));
             const ret=Array.from(intersetion);
-            res.send(200).send(ret);
+            res.status(200).send(ret);
       }catch(err){
             console.log(err);
             res.status(400).send();
