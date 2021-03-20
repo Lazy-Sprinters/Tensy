@@ -207,8 +207,10 @@ router.post('/manufacturer/agreements',async(req,res)=>{
 
 //Route-8:All active rfps
 router.post('/manufacturer/openrfps',async (req,res)=>{
+      console.log(req.body.id)
       try{
             const allrfps=await Rpf.find({Manufacturer_id:req.body.id});
+            console.log(allrfps)
             let ret=[];
             for(let i=0;i<allrfps.length;i++){
                   let showbuttons=true;
