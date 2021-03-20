@@ -1,6 +1,6 @@
 import React from "react";
 import Bounce from "react-reveal/Bounce";
-import LoginNavbar from "./LoginNavbar";
+import CenterLoginNavbar from "./CenterLoginNavbar";
 import { Link, Redirect } from "react-router-dom";
 import CardComponent1 from "./CardComponent1";
 import TnCModal from "./TnCModal";
@@ -456,7 +456,7 @@ export class Agr extends React.Component {
         onHide={() => this.handleModal(false)}
         onAgree={() => this.proceedToHome(true)}
       />
-       <LoginNavbar
+       <CenterLoginNavbar
         centerInfo={this.props.centerInfo}
       />
         {f1 && <> 

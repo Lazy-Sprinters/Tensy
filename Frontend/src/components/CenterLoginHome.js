@@ -60,8 +60,10 @@ export class CenterLoginHome extends Component {
     this.setState({x:data});
     this.handleModal1(true);
   };
-  fn1 = (x) =>{
-    Axios.post("http://localhost:5000/vendor/firstacceptforconsideration",x)
+  fn1 = (Vendor_id,Rfp_id,Manufacturer_id) =>{
+    const data={Vendor_id,Rfp_id,Manufacturer_id};
+    console.log(data)
+    Axios.post("http://localhost:5000/vendor/firstacceptforconsideration",data)
       .then((res) => {
         console.log(res);
         // this.handleSearch(res);
@@ -249,7 +251,7 @@ export class CenterLoginHome extends Component {
   }
   authenticate = (x) =>{
     this.setState({auth:false});
-    const data={Services:x.data.Services}
+    const data={Services:x.data.Services,id:x.data._id}
     // const centerInfo={centerInfo:data}
     // Axios.post("http://localhost:5000/helper/check1",centerInfo)      
     // .then((res) => {
@@ -304,7 +306,7 @@ export class CenterLoginHome extends Component {
         name="Are you sure you want to finalize the bid and move forward ? Note: This action in irreversible."
         show={ModalShow1}
         onHide={() => this.handleModal1(false)}
-        onAgree={() => this.fn1(x)}
+        onAgree={() => this.fn1(this.props.centerInfo.data._id,x.Rfp_id,x.Manufacturer_id)}
       />
       <TnCModal2
         // btnshow={true}

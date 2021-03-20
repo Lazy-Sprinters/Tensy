@@ -39,7 +39,7 @@ router.post('/manufacturer/signup1',async (req,res)=>{
             manufacturer.Status=false;
             const response=await axios.get('https://geocode.search.hereapi.com/v1/geocode?q='+manufacturer.Address+'&apiKey='+process.env.API_KEY);
             coordinates=Object.values(response.data.items[0].position);
-            console.log(coordinates)
+            // console.log(coordinates)
             if (coordinates.length!=0)
             {            
                   await manufacturer.save();
@@ -149,6 +149,7 @@ router.post('/rfp/new',async (req,res)=>{
 //Route-6:Sending the apt agreements
 router.post('/agreements/upd',async (req,res)=>{
       try{
+            // console.log(req.body);
             const allaggreements=await Agreement.find({Manufacturer_id:req.body.id});
             let ret=[];
             for(let i=0;i<allaggreements.length;i++)
@@ -157,6 +158,7 @@ router.post('/agreements/upd',async (req,res)=>{
                   const newdate=new Date(allaggreements[i].EndDate);
                   const tdiff=newdate.getTime()-date1.getTime();
                   const ddiff=tdiff/(1000*3600*24);
+                  // console.log(ddiff);
                   if (ddiff>=0 && ddiff<=15)
                   {     
                         ret.push({
@@ -166,6 +168,7 @@ router.post('/agreements/upd',async (req,res)=>{
                         });
                   }
             }    
+            // console.log(ret);
             const allvendors=await Vendor.find({});
             let s =new Set();
             for(let i=0;i<allvendors.length;i++){
@@ -272,7 +275,8 @@ router.post('/manufacturer/finalizedbids',async (req,res)=>{
                   else
                   {
                         const v=await Vendor.findOne({_id:allfinalbids[i].vendor_id});
-                        const o=allfinalbids[allfinalbids.length-1];
+                        const o=allfinalbids[i].All_negotiation[allfinalbids[i].All_negotiation.length-1];
+                        // console.log(o);
                         ret.push({
                               Bid_id:allfinalbids[i]._id,
                               Product:rfp.Product_Name,
@@ -307,7 +311,7 @@ router.post('/manufacturer/finalizedbids',async (req,res)=>{
 //Route-11:Sending all open bids
 router.post('/manufacturer/openbids',async (req,res)=>{
       try{
-            console.log(req.body);
+            // console.log(req.body);
             const allopenbids=await Bid.find({rfp_id:req.body.Rfp_id,Status:false});
             let ret=[];
             for(let i=0;i<allopenbids.length;i++){
@@ -326,7 +330,7 @@ router.post('/manufacturer/openbids',async (req,res)=>{
                         Bidder:((o.Quote_owner==allopenbids[i].vendor)?selectedvendor.CompanyName:currmanufacturer.CompanyName)
                   });
             }
-            console.log(ret);
+            // console.log(ret);
             res.status(200).send(ret);
       }catch(err){
             console.log(err);
@@ -348,16 +352,17 @@ router.post('/manufacturer/acceptbid',async(req,res)=>{
                   text:'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo'
             };
             // let emailinfo=await transporter.sendMail(message);
+            console.log(acceptedbid);
             const newagreement=new Agreement({
                   Manufacturer_id:acceptedbid.manufacturer_id,
                   Vendor_id:acceptedbid.vendor_id,
                   Product_Name:currentrfp.Product_Name,
                   Unit:currentrfp.Unit,
-                  Cost_per_Unit:((acceptedbid.All_negotiation.length==0)?currentrfp.Cost_per_Unit:acceptedbid.All_negotiation.length[acceptedbid.All_negotiation.length-1].Quote_Cost_per_Unit),
+                  Cost_per_Unit:((acceptedbid.All_negotiation.length==0)?currentrfp.Cost_per_Unit:acceptedbid.All_negotiation[acceptedbid.All_negotiation.length-1].Quote_Cost_per_Unit),
                   StartDate:currentrfp.StartDate,
                   Total_Quantity_required:currentrfp.Total_Quantity_required,
                   EndDate:currentrfp.EndDate,
-                  ModeofDelivery:((acceptedbid.All_negotiation.length==0)?currentrfp.ModeofDelivery:acceptedbid.All_negotiation.length[acceptedbid.All_negotiation.length-1].Quote_ModeofDelivery),
+                  ModeofDelivery:((acceptedbid.All_negotiation.length==0)?currentrfp.ModeofDelivery:acceptedbid.All_negotiation[acceptedbid.All_negotiation.length-1].Quote_ModeofDelivery),
                   Manufacturer:currmanufacturer.CompanyName,
                   Manufacturer_Address:currmanufacturer.Address,
                   Vendor:selectedvendor.CompanyName,
@@ -376,7 +381,7 @@ router.post('/manufacturer/acceptbid',async(req,res)=>{
 //Route-13: Accepting a bid and changing status
 router.post('/manufacturer/acceptforconsideration',async (req,res)=>{
       try{
-            const currbid=await Bid.findOne({_id:Bid_id});
+            const currbid=await Bid.findOne({_id:req.body.Bid_id});
             currbid.Status=true;
             await currbid.save();
             res.status(200).send();
@@ -389,13 +394,14 @@ router.post('/manufacturer/acceptforconsideration',async (req,res)=>{
 //Route-14 Proposing a negotiation
 router.post('/manufacturer/submitnego',async(req,res)=>{
       try{
-            const currbid=await Bid.findOne({_id:Bid_id});
+            // console.log(req.body);
+            const currbid=await Bid.findOne({_id:req.body.Bid_id});
             await currbid.All_negotiation.push({
-                  Quote_Cost_per_Unit:Price_Per_Unit,
-                  Quote_ModeofDelivery:Mode_Of_Delivery,
-                  Quote_owner:Man_id
+                  Quote_Cost_per_Unit:req.body.Price_Per_Unit,
+                  Quote_ModeofDelivery:req.body.Mode_Of_Delivery,
+                  Quote_owner:req.body.Man_id
             });
-            currbid.save();
+            await currbid.save();
             res.status(200).send();
       }catch(err){
             console.log(err);

@@ -127,7 +127,7 @@ router.post('/vendor/newotps',async (req,res)=>{
 // Route-5: Sending all kind of appointments
 router.post('/vendor/agreements',async(req,res)=>{
       try{
-            const allagreements=await Agreement.find({Manufacturer_id:req.body.id});
+            const allagreements=await Agreement.find({Vendor_id:req.body.id});
             let Live_Agreements=[],Upcoming_Agreements=[],Completed_Agreements=[];
             for(let i=0;i<allagreements.length;i++){
                   const startdate=allagreements[i].StartDate;
@@ -158,7 +158,9 @@ router.post('/vendor/list',async (req,res)=>{
             const allrfps=await Rfp.find({});
             let s2=new Set();
             for(let i=0;i<allrfps.length;i++){
-                  s2.add(allrfps[i].Product_Name);
+                  const found=allrfps[i].Action_taken.find(e=>(e.vendor_id==req.body.id));
+                  if (found==undefined)
+                        s2.add(allrfps[i].Product_Name);
             }
             let intersetion=new Set([...s1].filter(i=>s2.has(i)));
             const ret=Array.from(intersetion);
@@ -205,7 +207,7 @@ router.post('/vendor/allvalidrfps',async (req,res)=>{
 //Route-7: Accepting a bid and changing status
 router.post('/vendor/firstacceptforconsideration',async (req,res)=>{
       try{
-
+            // console.log(req.body);
             const rfp_id=req.body.Rfp_id;
             const Vendor_id=req.body.Vendor_id;
             const Manufacturer_id=req.body.Manufacturer_id;
@@ -229,7 +231,8 @@ router.post('/vendor/firstacceptforconsideration',async (req,res)=>{
 //Route-8 Proposing a negotiation
 router.post('/vendor/firstsubmitnego',async(req,res)=>{
       try{
-            console.log(req.body)
+            // console.log('Hello');
+            // console.log(req.body)
             const rfp_id=req.body.Rfp_id;
             const Vendor_id=req.body.Vendor_id;
             const Manufacturer_id=req.body.Manufacturer_id;

@@ -95,7 +95,7 @@ export class selectionPage1 extends Component {
     this.setState({ModalShow2:x})
   }
   handleChange = (x) => e => {
-    this.setState({x:e.target.value});
+    this.setState({[x]:e.target.value});
   }
   render() {
     const{ 

@@ -61,7 +61,7 @@ function TnCModal(props) {
         <Button style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}} variant="danger" onClick={props.onHide}>
             Cancel
           </Button>
-          <Button style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}} variant="success" onClick={props.onAgree(Price_Per_Unit)}>
+          <Button style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}} variant="success" onClick={() => props.onAgree(Price_Per_Unit)}>
             Submit
           </Button>
       </Modal.Footer>

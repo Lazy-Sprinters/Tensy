@@ -41,6 +41,7 @@ export default function StickyHeadTable({arr,handleNewRfp}) {
   const [start1, setStart] = React.useState(true);
   const convertToRows = (x) => {
     setStart(false);
+    console.log(x);
     let ans = []; 
     if( x==undefined || x.length==0 ){
       ans.push(createData("No Such Contracts Found","-","-","-"));
@@ -99,7 +100,7 @@ export default function StickyHeadTable({arr,handleNewRfp}) {
                         <Button 
                           variant="success"
                           onClick={()=>handleNewRfp(value)}
-                          style={{boxShadow:'0px 0px 14px 0.3px bisque' , backgroundColor:'white',color:'black',border:"5px solid bisque",marginBottom:"5vh"}}
+                          style={{boxShadow:'0px 0px 14px 0.3px bisque' , backgroundColor:'white',color:'black',border:"5px solid bisque",marginBottom:"0vh"}}
                         >
                           NEW RFP
                         </Button>

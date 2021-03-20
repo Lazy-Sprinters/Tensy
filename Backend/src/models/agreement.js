@@ -24,7 +24,7 @@ const aggreementSchema=mongoose.Schema({
             required:true,
       },
       StartDate:{
-            type:Number,
+            type:String,
             required:true
       },
       Total_Quantity_required:{
@@ -32,7 +32,7 @@ const aggreementSchema=mongoose.Schema({
             required:true
       },
       EndDate:{
-            type:Number,
+            type:String,
             required:true
       },
       ModeofDelivery:{

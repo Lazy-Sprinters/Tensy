@@ -21,6 +21,7 @@ import { format} from 'date-fns';
 export class RfpNew extends React.Component {
   state = {
     initial:true,
+    initial1:false,
     product:[],
     drpdwn:"",
     name:"",
@@ -31,10 +32,11 @@ export class RfpNew extends React.Component {
     this.setState({initial:false});
     Axios.post("http://localhost:5000/agreements/upd",data)      
     .then((res) => {
+        console.log(res);
         this.setState({product:res.data.ret});
         this.setState({drpdwn:res.data.services});
         setTimeout(() => this.props.onChangeloading(false),500);
-        this.setState({auth2:true});
+        this.setState({initial1:true});
       })
       .catch((err) => {
         console.log("Axios", err);
@@ -53,6 +55,7 @@ export class RfpNew extends React.Component {
     const{ 
       initial,
       product,
+      initial1,
       drpdwn,
       name,
       ModalShow
@@ -70,14 +73,15 @@ export class RfpNew extends React.Component {
         c={true}
         drpdwn={drpdwn}
         head="Post A New RFP"
-        text="Fill the Required details to post a RFP "
+        text=" "
         show={ModalShow}
         onHide={() => this.handleModal(false)}
         onAgree={() => this.handleModal(false)}
       />
+      {initial1 &&
         <div className="row">
           <div className="reviews">
-            <h1 style={{textAlign:"center"}}>Near Ending Contracts</h1>
+            <h1 style={{textAlign:"center"}}>Expiring Contracts</h1>
             <StickyHeadTable arr={product} handleNewRfp={this.handleNewRfp}/>
           </div>
           <div style={{marginTop:"40vh",marginLeft:"18vw"}}>
@@ -90,6 +94,7 @@ export class RfpNew extends React.Component {
             </Button>
           </div>
         </div>
+      }
       </div>
     );
   }

@@ -57,6 +57,7 @@ function TnCModal(props) {
       </Modal.Header>
       <Modal.Body>
         <h4>{props.head}</h4>
+        <br />
         <p>
           {props.text}
           <div className="row">
