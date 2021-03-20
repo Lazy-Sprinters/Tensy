@@ -26,7 +26,7 @@ export class CenterLoginHome extends Component {
     Product:"",
     rfpList:"",
     x:"",
-    Price_Per_Unit:"",
+    // Price_Per_Unit:"",
     Mode_Of_Delivery:"",
     y:"",
     ModalShow1:false,
@@ -286,7 +286,7 @@ export class CenterLoginHome extends Component {
       Nores,
       Product,
       x,y,
-      Price_Per_Unit,
+      // Price_Per_Unit,
       Mode_Of_Delivery,
       ModalShow1,
       ModalShow2
@@ -309,7 +309,7 @@ export class CenterLoginHome extends Component {
       <TnCModal2
         // btnshow={true}
         // btntext={true}
-        Price_Per_Unit={Price_Per_Unit}
+        // Price_Per_Unit={Price_Per_Unit}
         Mode_Of_Delivery={Mode_Of_Delivery}
         handleChange={this.handleChange}
         size="lg"
@@ -317,7 +317,7 @@ export class CenterLoginHome extends Component {
         head="Please enter the required details for negotiation proposal. Note: This action in irreversible."
         show={ModalShow2}
         onHide={() => this.handleModal2(false)}
-        onAgree={() => this.fn2(this.props.centerInfo.data._id,y.Rfp_id,y.Manufacturer_id,Price_Per_Unit,Mode_Of_Delivery)}
+        onAgree={(Price_Per_Unit) => this.fn2(this.props.centerInfo.data._id,y.Rfp_id,y.Manufacturer_id,Price_Per_Unit,Mode_Of_Delivery)}
       />
         <Pre1 />
         <CenterLoginNavbar

@@ -7,6 +7,8 @@ import './Test.css';
 import './Modal.css';
 
 function TnCModal(props) {
+  const [Price_Per_Unit, setPrice_Per_Unit] = React.useState("");
+
   return (
     <Modal
     // style={{backgroundColor:"#fcf8f7"}}
@@ -34,8 +36,8 @@ function TnCModal(props) {
                         placeholder="Enter your Cost/Unit"
                         label="Cost/Unit"
                         variant="outlined"
-                        value={props.Price_Per_Unit}
-                        onChange={props.handleChange("Price_Per_Unit")}
+                        value={Price_Per_Unit}
+                        onChange={(e) => setPrice_Per_Unit(e.target.value)}
                         type="number"
                         fullWidth
                 />
@@ -59,7 +61,7 @@ function TnCModal(props) {
         <Button style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}} variant="danger" onClick={props.onHide}>
             Cancel
           </Button>
-          <Button style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}} variant="success" onClick={props.onAgree}>
+          <Button style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}} variant="success" onClick={props.onAgree(Price_Per_Unit)}>
             Submit
           </Button>
       </Modal.Footer>

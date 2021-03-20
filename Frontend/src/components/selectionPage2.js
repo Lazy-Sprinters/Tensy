@@ -24,7 +24,7 @@ export class selectionPage1 extends Component {
     ModalShow:false,
     ModalShow1:false,
     ModalShow2:false,
-    Price_Per_Unit:"",
+    // Price_Per_Unit:"",
     Mode_Of_Delivery:"",
     proceed:false
   };
@@ -109,7 +109,7 @@ export class selectionPage1 extends Component {
       ModalShow,
       ModalShow1,
       ModalShow2,
-      Price_Per_Unit,
+      // Price_Per_Unit,
       Mode_Of_Delivery,
       proceed
     } = this.state;
@@ -134,7 +134,7 @@ export class selectionPage1 extends Component {
       <TnCModal2
         // btnshow={true}
         // btntext={true}
-        Price_Per_Unit={Price_Per_Unit}
+        // Price_Per_Unit={Price_Per_Unit}
         Mode_Of_Delivery={Mode_Of_Delivery}
         handleChange={this.handleChange}
         size="lg"
@@ -142,7 +142,7 @@ export class selectionPage1 extends Component {
         head="Please enter the required details for negotiation proposal. Note: This action in irreversible."
         show={ModalShow2}
         onHide={() => this.handleModal2(false)}
-        onAgree={() => this.fn2(y.Man_id,y.Bid_id,Price_Per_Unit,Mode_Of_Delivery)}
+        onAgree={(Price_Per_Unit) => this.fn2(y.Man_id,y.Bid_id,Price_Per_Unit,Mode_Of_Delivery)}
       />
       <TnCModal
         btnshow={true}
