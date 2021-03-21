@@ -13,16 +13,16 @@ We propose a solution where we create a web app with two portals (one for buyers
 # Tech Stack Used
 
   ### Tools:
-     Sublime Text<br>
-     Visual Studio Code<br>
-     Postman<br>
-     Robo 3T<br>
+     Sublime Text
+     Visual Studio Code
+     Postman
+     Robo 3T
   ### Languages:
-     Javascript<br>
+     Javascript
   ### Frameworks:
-     Reactjs<br>
-     Nodejs<br>
-     MongoDB <br>
+     Reactjs
+     Nodejs
+     MongoDB 
 
 
 # FRONTEND
