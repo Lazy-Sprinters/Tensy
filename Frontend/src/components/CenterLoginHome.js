@@ -301,14 +301,14 @@ export class CenterLoginHome extends Component {
             }} />}
             {auth2 && */}
         <div className="cbody">
-         <TnCModal
+         {ModalShow1 && <TnCModal
         size="lg"
         name="Are you sure you want to finalize the bid and move forward ? Note: This action in irreversible."
         show={ModalShow1}
         onHide={() => this.handleModal1(false)}
         onAgree={() => this.fn1(this.props.centerInfo.data._id,x.Rfp_id,x.Manufacturer_id)}
-      />
-      <TnCModal2
+      />}
+      {ModalShow2 && <TnCModal2
         // btnshow={true}
         // btntext={true}
         // Price_Per_Unit={Price_Per_Unit}
@@ -320,7 +320,7 @@ export class CenterLoginHome extends Component {
         show={ModalShow2}
         onHide={() => this.handleModal2(false)}
         onAgree={(Price_Per_Unit) => this.fn2(this.props.centerInfo.data._id,y.Rfp_id,y.Manufacturer_id,Price_Per_Unit,Mode_Of_Delivery)}
-      />
+      />}
         <Pre1 />
         <CenterLoginNavbar
           centerInfo={this.props.centerInfo}

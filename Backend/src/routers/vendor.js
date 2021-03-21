@@ -259,7 +259,119 @@ router.post('/vendor/firstsubmitnego',async(req,res)=>{
       }
 })
 
-//Route-6:Logging a user out
+//Route-9: Sending all rsps/bids
+router.post('/vendor/allbids',async (req,res)=>{
+      try{
+            const allbids=await Bid.find({vendor_id:req.body.Vendor_id});
+            // console.log(allbids);
+            const ret=[];
+            for(let i=0;i<allbids.length;i++)
+            {
+                  const currentrfp=await Rfp.findOne({_id:allbids[i].rfp_id});
+                  console.log(currentrfp);
+                  if (allbids[i].Status==false)
+                  {
+                        ret.push({
+                              Bid_id:allbids[i]._id,
+                              Product:currentrfp.Product_Name,
+                              Rfp_id:currentrfp._id,
+                              Unit:currentrfp.Unit,
+                              Price_Per_Unit:currentrfp.Cost_per_Unit,
+                              StartDate:currentrfp.StartDate,
+                              EndDate:currentrfp.EndDate,
+                              Total_Quantity:currentrfp.Total_Quantity_required,
+                              Mode_Of_Delivery:currentrfp.ModeofDelivery,
+                              DeadlineDate:currentrfp.DeadlineDate,
+                              flag:(allbids[i].Status==false)
+                        })
+                  }
+                  else
+                  {     
+                        const obj=allbids[i].All_negotiation[allbids[i].All_negotiation.length-1];
+                        ret.push({
+                              Bid_id:allbids[i]._id,
+                              Product:currentrfp.Product_Name,
+                              Rfp_id:currentrfp._id,
+                              Unit:currentrfp.Unit,
+                              Price_Per_Unit:obj.Quote_Cost_per_Unit,
+                              StartDate:currentrfp.StartDate,
+                              EndDate:currentrfp.EndDate,
+                              Total_Quantity:currentrfp.Total_Quantity_required,
+                              Mode_Of_Delivery:obj.Quote_ModeofDelivery,
+                              DeadlineDate:currentrfp.DeadlineDate,
+                              flag:(allbids[i].Status==false)
+                        })
+                  }
+            }
+            res.status(200).send(ret);
+      }catch(err){
+            console.log(err);
+            res.status(400).send();
+      }     
+})
+
+//Route-10: When vendor accepts the proposal
+router.post('/vendor/accept',async(req,res)=>{
+      try{
+            const currbid=await Bid.findOne({_id:req.body.Bid_id});
+            currbid.Status=true;
+            await currbid.save();
+            res.status(200).send();
+      }catch(err){
+            console.log(err);
+            res.status(400).send();  
+      }
+})
+
+//Route-11: When vendor opts for deletion
+router.post('/vendor/deletebid',async(req,res)=>{
+      try{
+            await Bid.findByIdAndDelete({_id:req.body.Bid_id});
+            res.status(200).send();
+      }catch(err){
+            console.log(err);
+            res.status(400).send();
+      }
+})
+
+//Route-12:Initial Negotiation Bid
+router.post('/vendor/negotiate1',async(req,res)=>{
+      try{  
+            const currbid=await Bid.findOne({_id:req.body.Bid_id});
+            const currven=await Vendor.findOne({_id:currbid.vendor_id});
+            const currman=await Manufacturer.findOne({_id:currbid.manufacturer_id});
+            const obj=currbid.All_negotiation[currbid.All_negotiation.length-1];
+            const ret={
+                  Price_Per_Unit:obj.Quote_Cost_per_Unit,
+                  Mode_Of_Delivery:obj.Quote_ModeofDelivery,
+                  Bidder:((obj.Quote_owner==currbid.vendor_id)?currven.CompanyName:currman.CompanyName)
+            };
+            res.status(200).send(ret);
+      }catch(err){
+            console.log(err);
+            res.status(400).send();
+      }
+})
+
+//Route-13:Negotiation big initiation 
+router.post('/vendor/negotiate2',async(req,res)=>{
+      try{
+            // Bid_id,Vendor_id,Price_Per_Unit,Mode_Of_Delivery
+            const currbid=await Bid.findOne({_id:req.body.Bid_id});
+            await currbid.All_negotiation.push({
+                  Quote_Cost_per_Unit:Price_Per_Unit,
+                  Quote_ModeofDelivery:Mode_Of_Delivery,
+                  Quote_owner:Vendor_id
+            });
+            await currbid.save();
+            res.status(200).send();
+      }catch(err){
+            console.log(err);
+            res.status(400).send();
+      }
+})
+
+//Route-14:Logging a user out
 router.post('/vendor/logout',async (req,res)=>{
       try{
             req.user.RecentEmailOtps=[];

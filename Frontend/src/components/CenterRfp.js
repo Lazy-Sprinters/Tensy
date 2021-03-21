@@ -1,6 +1,6 @@
 import React from "react";
 import Bounce from "react-reveal/Bounce";
-import LoginNavbar from "./LoginNavbar";
+import CenterLoginNavbar from "./CenterLoginNavbar";
 import { Link, Redirect } from "react-router-dom";
 import CardComponent1 from "./CardComponent1";
 import TnCModal from "./TnCModal";
@@ -322,11 +322,11 @@ export class Agr extends React.Component {
         onHide={() => this.handleModal2(false)}
         onAgree={() => this.accept(rfpid)}
       />
-       <TnCModal3
+       {ModalShow3 && <TnCModal3
         // btnshow={true}
         // btntext={true}
         // Price_Per_Unit={Price_Per_Unit}
-        rfpid={this.rfpid}
+        rfpid={rfpid}
         Mode_Of_Delivery={Mode_Of_Delivery}
         handleChange={this.handleChange}
         size="lg"
@@ -335,8 +335,8 @@ export class Agr extends React.Component {
         show={ModalShow3}
         onHide={() => this.handleModal3(false)}
         onAgree={(Price_Per_Unit) => this.negotiate(rfpid,this.props.centerInfo._id,Price_Per_Unit,Mode_Of_Delivery)}
-      />
-       <LoginNavbar
+      />}
+       <CenterLoginNavbar
         centerInfo={this.props.centerInfo}
       />
         {f1 && <> 

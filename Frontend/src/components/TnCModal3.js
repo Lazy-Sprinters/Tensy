@@ -11,6 +11,7 @@ function TnCModal(props) {
   const [Flag, setFlag] = React.useState(true);
   const [Data, setData] = React.useState(true);
   const callApi = (x) =>{
+    setFlag(false);
     const data={Bid_id:x.Bid_id};
     // this.props.onChangeRfp(x.Rfp_id);
      Axios.post("http://localhost:5000/vendor/negotiate1",data)
@@ -32,7 +33,7 @@ function TnCModal(props) {
       // className="special_modal"
       centered
     >
-    {flag && callApi(props.rfpid)}
+    {Flag && callApi(props.rfpid)}
       <Modal.Header closeButton>
         <Modal.Title >
           {props.name}

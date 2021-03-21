@@ -7,7 +7,7 @@ import CenterVerify from './components/CenterVerify';
 import CenterRegister from './components/CenterRegister';
 import Login from './components/Login';
 import CenterLogin from './components/CenterLogin';
-import CenterRfp from './components/CenterRfp';
+import CenterRfp from './components/CenterRfp.js';
 import LoginHome from './components/LoginHome';
 import CenterLoginHome from './components/CenterLoginHome';
 import CenterAgr from './components/CenterAgr';
