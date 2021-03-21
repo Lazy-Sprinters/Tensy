@@ -67,10 +67,11 @@ function TnCModal(props) {
                       placeholder="Enter your Product Name"
                       label="Product Name"
                       variant="outlined"
-                      value={props.name1}
+                      value={props.Product_Name}
                       type="text"
                       fullWidth
-                      readonly
+                      // readonly
+                      onChange={(e) => setProduct_Name(e.target.value)}
               />
               :
               <div >
