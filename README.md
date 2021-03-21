@@ -1,3 +1,17 @@
+
+<div align="center">
+
+<img src="./Frontend/public/logo1.png" />
+
+<br />
+<br />
+
+# TENSY - Tendering Made Easy !
+
+</div>
+
+<br />
+
 # DEVSPACE-GOCOMET-PROBLEM-2
 
 This is the official repository for team-Lazy Sprinters
