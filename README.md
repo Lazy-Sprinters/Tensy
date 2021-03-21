@@ -37,6 +37,17 @@ We propose a solution where we create a web app with two portals (one for buyers
      Reactjs
      Nodejs
      MongoDB 
+     
+# Implementation:
+ 
+ ## Video: 
+ 
+ ### https://youtu.be/EO3gQHRKY6s
+ 
+ ## Presentation: 
+ 
+ ### https://he-s3.s3.ap-southeast-1.amazonaws.com/media/sprint/devspace-2021/team/988938/c819493devspace___tensy.pptx
+
 
 
 # FRONTEND
