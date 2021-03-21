@@ -88,7 +88,7 @@ class CenterLogin extends Component {
         return (
           <div className="lbody">
             <Navbar />
-            <div className="Login-bg" style={{backgroundImage:"url(" + "/images/hometry.jpg"+")"}}>
+            <div className="Login-bg" style={{backgroundImage:"url(" + "/images/hometry.jpeg"+")"}}>
             <div className="base-container" style={{marginTop:"2vh"}}>
               <div className="header">Vendor Login</div>
               <div className="content">

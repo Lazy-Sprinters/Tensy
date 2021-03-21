@@ -88,7 +88,7 @@ class Login extends Component {
         return (
           <div className="lbody">
             <Navbar />
-            <div className="Login-bg" style={{backgroundImage:"url(" + "/images/hometry.jpg"+")"}}>
+            <div className="Login-bg" style={{backgroundImage:"url(" + "/images/hometry.jpeg"+")"}}>
             <div className="base-container" style={{marginTop:"3vh"}}>
               <div className="header"> Manufacturer Login</div>
               <div className="content">

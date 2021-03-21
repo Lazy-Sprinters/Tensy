@@ -128,7 +128,8 @@ router.post('/manufacturer/newotps',async (req,res)=>{
             else{
                   res.status(400).send("User is already verified");
             }
-      }catch{
+      }catch(err){
+            console.log(err);
             res.status(404).send();
       }
 });

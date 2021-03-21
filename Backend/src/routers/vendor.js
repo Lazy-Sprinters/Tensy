@@ -268,8 +268,8 @@ router.post('/vendor/allbids',async (req,res)=>{
             for(let i=0;i<allbids.length;i++)
             {
                   const currentrfp=await Rfp.findOne({_id:allbids[i].rfp_id});
-                  console.log(currentrfp);
-                  if (allbids[i].Status==false)
+                  // console.log(currentrfp);
+                  if (allbids[i].Status==false || allbids[i].All_negotiation.length==0)
                   {
                         ret.push({
                               Bid_id:allbids[i]._id,

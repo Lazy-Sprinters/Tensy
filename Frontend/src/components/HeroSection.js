@@ -9,7 +9,9 @@ import DoneAllIcon from '@material-ui/icons/DoneAll';
 function HeroSection() {
   return (
     <div className='hero-container'>
-      <img src='/images/homech1.jpg' className="home-img" style={{filter: 'grayscale(0.5) brightness(0.8) '}}/>
+    {/*style={{filter: 'grayscale(0.5) brightness(0.8) '}}*/}
+      <img src='/images/Homech6.jpeg' 
+      className="home-img" />
       <h2>Tendering made easy!</h2>
       <div style={{marginLeft:'-50vw',color:"#fcf5dd",fontSize:'5vh' , textAlign:'center'}}>
       <FileCopyIcon /><br/>Fast and Reliable</div>

@@ -17,7 +17,7 @@ function TnCModal(props) {
      Axios.post("http://localhost:5000/vendor/negotiate1",data)
       .then((res) => {
         console.log(res);
-        this.setData(res.data);
+        setData(res.data);
       })
       .catch((err) => {
           console.log("Axios", err.message);
@@ -42,11 +42,11 @@ function TnCModal(props) {
       <Modal.Body>
         <h4>{props.head}</h4>
         <p>
-          <h3>
+          <h4>
             <b>Last Cost/Unit : </b> ₹{Data.Price_Per_Unit} <br/><br/>
             <b>Last Mode Of Delivery : </b> {Data.Mode_Of_Delivery} <br/><br/>
             <b>Last Bidder : </b> {Data.Bidder} <br/><br/>
-          </h3>
+          </h4>
           <div className="row">
                 <label style={{marginTop:"3vh",marginLeft:"5vw",marginRight:"2vw"}}>Cost per Unit</label>
               <div >

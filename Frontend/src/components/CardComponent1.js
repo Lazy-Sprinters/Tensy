@@ -86,7 +86,7 @@ export default function CardComponent1({onFinal,onCurrent,onDelete,flag,flag1,da
         <Typography  style={{color:"black"}} component="p">
           <b>Duration Of RFP: </b>{StartDate} - {EndDate}
         </Typography>
-        {!flag && !data.flag &&
+        {!flag  &&
           <Typography  style={{color:"black"}} component="p">
             <b>Deadline Of RFP: </b>{DeadlineDate}
           </Typography>
@@ -108,18 +108,19 @@ export default function CardComponent1({onFinal,onCurrent,onDelete,flag,flag1,da
         }
         {!flag && flag1 &&
           <>
-            data.flag && <Button  style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}} variant="success" onClick={() => onCurrent(data)}>
+
+            {data.flag && <Button  style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}} variant="success" onClick={() => onCurrent(data)}>
                           Negotiate
-                        </Button>
+                        </Button>}
           <Button style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}} variant="success" onClick={() => onDelete(data)}>
             Cancel RFP
           </Button>
-          data.flag && <Button style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}} variant="success" onClick={() => onFinal(data)}>
+          {data.flag && <Button style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}} variant="success" onClick={() => onFinal(data)}>
                         Accept
-                      </Button>
-          !data.flag && <Button disabled={true} style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}} variant="success">
+                      </Button>}
+          {!data.flag && <Button disabled={true} style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}} variant="success">
                         Waiting For Response
-                      </Button>
+                      </Button>}
           </>
         }
         {/*
