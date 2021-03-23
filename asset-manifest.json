@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/DEVSPACE-GOCOMET-PROBLEM-2/static/css/main.9df89204.chunk.css",
+    "main.js": "/DEVSPACE-GOCOMET-PROBLEM-2/static/js/main.4282012a.chunk.js",
+    "main.js.map": "/DEVSPACE-GOCOMET-PROBLEM-2/static/js/main.4282012a.chunk.js.map",
+    "runtime-main.js": "/DEVSPACE-GOCOMET-PROBLEM-2/static/js/runtime-main.9ce3f343.js",
+    "runtime-main.js.map": "/DEVSPACE-GOCOMET-PROBLEM-2/static/js/runtime-main.9ce3f343.js.map",
+    "static/css/2.150d169a.chunk.css": "/DEVSPACE-GOCOMET-PROBLEM-2/static/css/2.150d169a.chunk.css",
+    "static/js/2.ec56d89f.chunk.js": "/DEVSPACE-GOCOMET-PROBLEM-2/static/js/2.ec56d89f.chunk.js",
+    "static/js/2.ec56d89f.chunk.js.map": "/DEVSPACE-GOCOMET-PROBLEM-2/static/js/2.ec56d89f.chunk.js.map",
+    "index.html": "/DEVSPACE-GOCOMET-PROBLEM-2/index.html",
+    "static/css/2.150d169a.chunk.css.map": "/DEVSPACE-GOCOMET-PROBLEM-2/static/css/2.150d169a.chunk.css.map",
+    "static/css/main.9df89204.chunk.css.map": "/DEVSPACE-GOCOMET-PROBLEM-2/static/css/main.9df89204.chunk.css.map",
+    "static/js/2.ec56d89f.chunk.js.LICENSE.txt": "/DEVSPACE-GOCOMET-PROBLEM-2/static/js/2.ec56d89f.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9ce3f343.js",
+    "static/css/2.150d169a.chunk.css",
+    "static/js/2.ec56d89f.chunk.js",
+    "static/css/main.9df89204.chunk.css",
+    "static/js/main.4282012a.chunk.js"
+  ]
+}
