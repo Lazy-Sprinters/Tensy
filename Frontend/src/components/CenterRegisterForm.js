@@ -242,7 +242,7 @@ export class CenterRegisterForm extends Component {
               <div className="reg-row">
                 <div className="reg-col">
                   <div className="reg-img">
-                    <img src="/images/register.gif" />  
+                    <img src="DEVSPACE-GOCOMET-PROBLEM-2/images/register.gif" />  
                   </div>
                 </div>
                 <div className="reg-col">
@@ -371,7 +371,7 @@ export class CenterRegisterForm extends Component {
               <div className="reg-row">
                 <div className="reg-col">
                   <div className="reg-img">
-                    <img src="/images/register.gif" />  
+                    <img src="DEVSPACE-GOCOMET-PROBLEM-2/images/register.gif" />  
                   </div>
                 </div>
 

@@ -68,7 +68,7 @@ export class CentreCards extends React.Component {
     let len = centreList.length;
     let i;
     const code: JSX.Element[] = [];
-    // code.push(<CardComponent1  handleSlot={this.handleSlot} data="hey" img='/images/Add.jpg'
+    // code.push(<CardComponent1  handleSlot={this.handleSlot} data="hey" img='DEVSPACE-GOCOMET-PROBLEM-2/images/Add.jpg'
     //   alt='Post_normal'
     //   Name='Some Random text'
     //   Address='Some Random text'

@@ -10,7 +10,7 @@ function HeroSection() {
   return (
     <div className='hero-container'>
     {/*style={{filter: 'grayscale(0.5) brightness(0.8) '}}*/}
-      <img src='/images/Homech6.jpeg' 
+      <img src='DEVSPACE-GOCOMET-PROBLEM-2/images/Homech6.jpeg' 
       className="home-img" />
       <h2>Tendering made easy!</h2>
       <div style={{marginLeft:'-50vw',color:"#fcf5dd",fontSize:'5vh' , textAlign:'center'}}>
