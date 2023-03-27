@@ -20,13 +20,13 @@ export class Agr extends React.Component {
     live: "",
     upcoming: "",
     completed: "",
-    f1:false,
-    f2:false,
-    f3:false,
+    f1: false,
+    f2: false,
+    f3: false,
     slots: "",
     CentreValue: "",
-    centreList:"",
-    ModalShow:false
+    centreList: "",
+    ModalShow: false,
   };
   handleChange = (input) => (e) => {
     this.setState({ [input]: e.target.value });
@@ -35,34 +35,38 @@ export class Agr extends React.Component {
     // this.setState({slots:x.data});
     this.setState({ selected: true });
   };
-  handleModal = (x) =>{
-    this.setState({ModalShow:x});
+  handleModal = (x) => {
+    this.setState({ ModalShow: x });
     // !x && this.setState({selected:true})
-
-  }
-  proceedToHome = (x) =>{
-    this.setState({selected:x})
-  }
-  show( centerInfo) {
+  };
+  proceedToHome = (x) => {
+    this.setState({ selected: x });
+  };
+  show(centerInfo) {
     /* tochange */
     this.setState({ initial: false });
     this.props.onChangeloading(true);
-    const data={id:centerInfo.data._id};
+    const data = { id: centerInfo.data._id };
     // let centreList;
-    Axios.post("http://localhost:5000/vendor/agreements",data)
+    Axios.post("http://localhost:8080/vendor/agreements", data)
       .then((res) => {
         console.log(res);
         // this.handleSearch(res);
-        this.show2(res.data.Live_Agreements,res.data.Upcoming_Agreements,res.data.Completed_Agreements,centerInfo);
+        this.show2(
+          res.data.Live_Agreements,
+          res.data.Upcoming_Agreements,
+          res.data.Completed_Agreements,
+          centerInfo
+        );
       })
       .catch((err) => {
-          console.log("Axios", err.message);
-      }); 
+        console.log("Axios", err.message);
+      });
   }
-    show2(live,upcoming,completed,centerInfo){
+  show2(live, upcoming, completed, centerInfo) {
     let len = live.length;
-    let f1=(len>0);
-    this.setState({f1:f1});
+    let f1 = len > 0;
+    this.setState({ f1: f1 });
     let i;
     const code: JSX.Element[] = [];
     for (i = 0; i < len - 2; i += 3) {
@@ -83,8 +87,8 @@ export class Agr extends React.Component {
             Total_Quantity={value.Total_Quantity}
             Total_Cost={value.Total_Cost}
             Mode_Of_Delivery={value.Mode_Of_Delivery}
-             Vendor={value.Manufacturer}
-             Vendor_Address={value.Manufacturer_Address}
+            Vendor={value.Manufacturer}
+            Vendor_Address={value.Manufacturer_Address}
           />
           <CardComponent1
             flag={true}
@@ -135,8 +139,8 @@ export class Agr extends React.Component {
             Total_Quantity={value.Total_Quantity}
             Total_Cost={value.Total_Cost}
             Mode_Of_Delivery={value.Mode_Of_Delivery}
-             Vendor={value.Manufacturer}
-             Vendor_Address={value.Manufacturer_Address}
+            Vendor={value.Manufacturer}
+            Vendor_Address={value.Manufacturer_Address}
           />
         </div>
       );
@@ -158,8 +162,8 @@ export class Agr extends React.Component {
             Total_Quantity={value.Total_Quantity}
             Total_Cost={value.Total_Cost}
             Mode_Of_Delivery={value.Mode_Of_Delivery}
-             Vendor={value.Manufacturer}
-             Vendor_Address={value.Manufacturer_Address}
+            Vendor={value.Manufacturer}
+            Vendor_Address={value.Manufacturer_Address}
           />
           <CardComponent1
             flag={true}
@@ -182,8 +186,8 @@ export class Agr extends React.Component {
     this.setState({ live: code });
 
     len = upcoming.length;
-    let f2=(len>0);
-    this.setState({f2:f2});
+    let f2 = len > 0;
+    this.setState({ f2: f2 });
     const code1: JSX.Element[] = [];
     for (i = 0; i < len - 2; i += 3) {
       let value = upcoming[i];
@@ -203,8 +207,8 @@ export class Agr extends React.Component {
             Total_Quantity={value.Total_Quantity}
             Total_Cost={value.Total_Cost}
             Mode_Of_Delivery={value.Mode_Of_Delivery}
-             Vendor={value.Manufacturer}
-             Vendor_Address={value.Manufacturer_Address}
+            Vendor={value.Manufacturer}
+            Vendor_Address={value.Manufacturer_Address}
           />
           <CardComponent1
             flag={true}
@@ -255,8 +259,8 @@ export class Agr extends React.Component {
             Total_Quantity={value.Total_Quantity}
             Total_Cost={value.Total_Cost}
             Mode_Of_Delivery={value.Mode_Of_Delivery}
-             Vendor={value.Manufacturer}
-             Vendor_Address={value.Manufacturer_Address}
+            Vendor={value.Manufacturer}
+            Vendor_Address={value.Manufacturer_Address}
           />
         </div>
       );
@@ -278,8 +282,8 @@ export class Agr extends React.Component {
             Total_Quantity={value.Total_Quantity}
             Total_Cost={value.Total_Cost}
             Mode_Of_Delivery={value.Mode_Of_Delivery}
-             Vendor={value.Manufacturer}
-             Vendor_Address={value.Manufacturer_Address}
+            Vendor={value.Manufacturer}
+            Vendor_Address={value.Manufacturer_Address}
           />
           <CardComponent1
             flag={true}
@@ -302,8 +306,8 @@ export class Agr extends React.Component {
     this.setState({ upcoming: code1 });
 
     len = completed.length;
-    let f3=(len>0);
-    this.setState({f3:f3})
+    let f3 = len > 0;
+    this.setState({ f3: f3 });
     const code2: JSX.Element[] = [];
     for (i = 0; i < len - 2; i += 3) {
       let value = completed[i];
@@ -323,8 +327,8 @@ export class Agr extends React.Component {
             Total_Quantity={value.Total_Quantity}
             Total_Cost={value.Total_Cost}
             Mode_Of_Delivery={value.Mode_Of_Delivery}
-             Vendor={value.Manufacturer}
-             Vendor_Address={value.Manufacturer_Address}
+            Vendor={value.Manufacturer}
+            Vendor_Address={value.Manufacturer_Address}
           />
           <CardComponent1
             flag={true}
@@ -375,8 +379,8 @@ export class Agr extends React.Component {
             Total_Quantity={value.Total_Quantity}
             Total_Cost={value.Total_Cost}
             Mode_Of_Delivery={value.Mode_Of_Delivery}
-             Vendor={value.Manufacturer}
-             Vendor_Address={value.Manufacturer_Address}
+            Vendor={value.Manufacturer}
+            Vendor_Address={value.Manufacturer_Address}
           />
         </div>
       );
@@ -398,8 +402,8 @@ export class Agr extends React.Component {
             Total_Quantity={value.Total_Quantity}
             Total_Cost={value.Total_Cost}
             Mode_Of_Delivery={value.Mode_Of_Delivery}
-             Vendor={value.Manufacturer}
-             Vendor_Address={value.Manufacturer_Address}
+            Vendor={value.Manufacturer}
+            Vendor_Address={value.Manufacturer_Address}
           />
           <CardComponent1
             flag={true}
@@ -420,8 +424,8 @@ export class Agr extends React.Component {
       );
     }
     this.setState({ completed: code2 });
-    this.handleModal(!f1&&!f2&&!f3);
-    setTimeout(() => this.props.onChangeloading(false),2000);
+    this.handleModal(!f1 && !f2 && !f3);
+    setTimeout(() => this.props.onChangeloading(false), 2000);
   }
   render() {
     // const { live,centerInfo} = this.props;        /* tochange */
@@ -435,7 +439,10 @@ export class Agr extends React.Component {
       completed,
       slots,
       CentreValue,
-      f1,f2,f3,ModalShow
+      f1,
+      f2,
+      f3,
+      ModalShow,
     } = this.state;
 
     const values = {
@@ -446,34 +453,59 @@ export class Agr extends React.Component {
     return (
       <div className="helper">
         {initial && this.show(this.props.centerInfo)}
-      <TnCModal
-        btnshow={true}
-        btntext={true}
-        size="lg"
-        name="No agreements Done Yet"
-        head="Please negotiate on RFPs in marketplace and get the offer accepted to view them "
-        show={ModalShow}
-        onHide={() => this.handleModal(false)}
-        onAgree={() => this.proceedToHome(true)}
-      />
-       <CenterLoginNavbar
-        centerInfo={this.props.centerInfo}
-      />
-        {f1 && <> 
-          <h2 style={{marginLeft:"5vw",marginTop:"3vh",marginBottom:"3vh"}}>LIVE</h2>
-          {live}
+        <TnCModal
+          btnshow={true}
+          btntext={true}
+          size="lg"
+          name="No agreements Done Yet"
+          head="Please negotiate on RFPs in marketplace and get the offer accepted to view them "
+          show={ModalShow}
+          onHide={() => this.handleModal(false)}
+          onAgree={() => this.proceedToHome(true)}
+        />
+        <CenterLoginNavbar centerInfo={this.props.centerInfo} />
+        {f1 && (
+          <>
+            <h2
+              style={{
+                marginLeft: "5vw",
+                marginTop: "3vh",
+                marginBottom: "3vh",
+              }}
+            >
+              LIVE
+            </h2>
+            {live}
           </>
-        }
-        {f2 && <>
-          <h2 style={{marginLeft:"5vw",marginTop:"3vh",marginBottom:"3vh"}}>UPCOMING</h2>
-          {upcoming}
+        )}
+        {f2 && (
+          <>
+            <h2
+              style={{
+                marginLeft: "5vw",
+                marginTop: "3vh",
+                marginBottom: "3vh",
+              }}
+            >
+              UPCOMING
+            </h2>
+            {upcoming}
           </>
-        }
-        {f3 && <> 
-          <h2 style={{marginLeft:"5vw",marginTop:"3vh",marginBottom:"3vh"}}>COMPLETED</h2>
-          {completed}
+        )}
+        {f3 && (
+          <>
+            <h2
+              style={{
+                marginLeft: "5vw",
+                marginTop: "3vh",
+                marginBottom: "3vh",
+              }}
+            >
+              COMPLETED
+            </h2>
+            {completed}
           </>
-        }
+        )}
         {selected && (
           <Redirect
             push
@@ -483,8 +515,7 @@ export class Agr extends React.Component {
             }}
           />
         )}
-      <Footer />
-        
+        <Footer />
       </div>
     );
   }
@@ -492,7 +523,7 @@ export class Agr extends React.Component {
 const mapStateToProps = (state) => {
   return {
     centerInfo: state.centerInfo,
-    loading:state.loading
+    loading: state.loading,
   };
 };
 
@@ -500,9 +531,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onChangeCenterInfo: (centerInfo) =>
       dispatch({ type: actionTypes.CHANGE_STATE, centerInfo: centerInfo }),
-    onChangeloading: (loading) => 
-      dispatch({type:actionTypes.CHANGE_LOADING , loading:loading})
-
+    onChangeloading: (loading) =>
+      dispatch({ type: actionTypes.CHANGE_LOADING, loading: loading }),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Agr);

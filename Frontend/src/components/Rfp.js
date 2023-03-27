@@ -18,15 +18,15 @@ export class Agr extends React.Component {
     selected: false,
     initial: true,
     RfpList: "",
-    f1:false,
+    f1: false,
     slots: "",
     CentreValue: "",
-    centreList:"",
-    ModalShow:false,
-    ModalShow1:false,
-    finalProceed:false,
-    currProceed:false,
-    rfpid:""
+    centreList: "",
+    ModalShow: false,
+    ModalShow1: false,
+    finalProceed: false,
+    currProceed: false,
+    rfpid: "",
   };
   handleChange = (input) => (e) => {
     this.setState({ [input]: e.target.value });
@@ -35,72 +35,70 @@ export class Agr extends React.Component {
     // this.setState({slots:x.data});
     this.setState({ selected: true });
   };
-  handleModal = (x) =>{
-    this.setState({ModalShow:x});
+  handleModal = (x) => {
+    this.setState({ ModalShow: x });
     // !x && this.setState({selected:true})
-
   };
-  handleModal1 = (x) =>{
-    this.setState({ModalShow1:x});
+  handleModal1 = (x) => {
+    this.setState({ ModalShow1: x });
     // !x && this.setState({selected:true})
-
   };
-  proceedToHome = (x) =>{
-    this.setState({selected:x})
+  proceedToHome = (x) => {
+    this.setState({ selected: x });
   };
-  show( userInfo) {
+  show(userInfo) {
     /* tochange */
     this.setState({ initial: false });
     this.props.onChangeloading(true);
-    const data={id:userInfo.data._id};
+    const data = { id: userInfo.data._id };
     // let centreList;
-    Axios.post("http://localhost:5000/manufacturer/openrfps",data)
+    Axios.post("http://localhost:8080/manufacturer/openrfps", data)
       .then((res) => {
         console.log(res);
         // this.handleSearch(res);
         this.show2(res.data);
       })
       .catch((err) => {
-          console.log("Axios", err.message);
-      }); 
-  };
-  onFinal = (x) =>{
-    console.log(x)
-    const data={Rfp_id:x.Rfp_id};
+        console.log("Axios", err.message);
+      });
+  }
+  onFinal = (x) => {
+    console.log(x);
+    const data = { Rfp_id: x.Rfp_id };
     this.props.onChangeRfp(x);
-     Axios.post("http://localhost:5000/manufacturer/finalizedbids",data)
+    Axios.post("http://localhost:8080/manufacturer/finalizedbids", data)
       .then((res) => {
         console.log(res);
         // this.handleSearch(res);
         // this.show2(res.data);
-        this.setState({finalProceed:true})
+        this.setState({ finalProceed: true });
       })
       .catch((err) => {
-          console.log("Axios", err.message);
+        console.log("Axios", err.message);
       });
-  }; 
-  onCurrent = (x) =>{
-   const data={Rfp_id:x.Rfp_id};
+  };
+  onCurrent = (x) => {
+    const data = { Rfp_id: x.Rfp_id };
     this.props.onChangeRfp(x.Rfp_id);
 
-     Axios.post("http://localhost:5000/manufacturer/openbids",data)
+    Axios.post("http://localhost:8080/manufacturer/openbids", data)
       .then((res) => {
         console.log(res);
         // this.handleSearch(res);
         // this.show2(res.data);
-        this.setState({currProceed:true})
+        this.setState({ currProceed: true });
       })
       .catch((err) => {
-          console.log("Axios", err.message);
+        console.log("Axios", err.message);
       });
-  } ;
-  onDelete = (x) =>{
-    this.setState({rfpid:x});
+  };
+  onDelete = (x) => {
+    this.setState({ rfpid: x });
     this.handleModal1(true);
-  } ;
+  };
   delete = (x) => {
-    const data={Rfp_id:x.Rfp_id};
-     Axios.post("http://localhost:5000/manufacturer/deleterfp",data)
+    const data = { Rfp_id: x.Rfp_id };
+    Axios.post("http://localhost:8080/manufacturer/deleterfp", data)
       .then((res) => {
         console.log(res);
         // this.handleSearch(res);
@@ -108,13 +106,13 @@ export class Agr extends React.Component {
         // this.show2(res.data);
       })
       .catch((err) => {
-          console.log("Axios", err.message);
-      }); 
-  }
-    show2(RfpList,userInfo){
+        console.log("Axios", err.message);
+      });
+  };
+  show2(RfpList, userInfo) {
     let len = RfpList.length;
-    let f1=(len>0);
-    this.setState({f1:f1});
+    let f1 = len > 0;
+    this.setState({ f1: f1 });
     let i;
     const code: JSX.Element[] = [];
     for (i = 0; i < len - 2; i += 3) {
@@ -245,7 +243,7 @@ export class Agr extends React.Component {
     }
     this.setState({ RfpList: code });
     this.handleModal(!f1);
-    setTimeout(() => this.props.onChangeloading(false),2000);
+    setTimeout(() => this.props.onChangeloading(false), 2000);
   }
   render() {
     // const { RfpList,userInfo} = this.props;        /* tochange */
@@ -257,9 +255,12 @@ export class Agr extends React.Component {
       RfpList,
       slots,
       CentreValue,
-      f1,ModalShow,ModalShow1,
+      f1,
+      ModalShow,
+      ModalShow1,
       finalProceed,
-      currProceed,rfpid
+      currProceed,
+      rfpid,
     } = this.state;
 
     const values = {
@@ -270,33 +271,28 @@ export class Agr extends React.Component {
     return (
       <div className="helper">
         {initial && this.show(this.props.userInfo)}
-      <TnCModal
-        btnshow={true}
-        btntext={true}
-        size="lg"
-        name="No RFPs Done Yet"
-        head="Please post RFPs to view them "
-        show={ModalShow}
-        onHide={() => this.handleModal(false)}
-        onAgree={() => this.proceedToHome(true)}
-      />
-      <TnCModal
-        // btnshow={true}
-        // btntext={true}
-        size="lg"
-        name="Are you sure you want to delete the RFP ? Note: This action in irreversible."
-        // head="Please Try Again Later"
-        show={ModalShow1}
-        onHide={() => this.handleModal1(false)}
-        onAgree={() => this.delete(rfpid)}
-      />
-       <LoginNavbar
-        userInfo={this.props.userInfo}
-      />
-        {f1 && <> 
-          {RfpList}
-          </>
-        }
+        <TnCModal
+          btnshow={true}
+          btntext={true}
+          size="lg"
+          name="No RFPs Done Yet"
+          head="Please post RFPs to view them "
+          show={ModalShow}
+          onHide={() => this.handleModal(false)}
+          onAgree={() => this.proceedToHome(true)}
+        />
+        <TnCModal
+          // btnshow={true}
+          // btntext={true}
+          size="lg"
+          name="Are you sure you want to delete the RFP ? Note: This action in irreversible."
+          // head="Please Try Again Later"
+          show={ModalShow1}
+          onHide={() => this.handleModal1(false)}
+          onAgree={() => this.delete(rfpid)}
+        />
+        <LoginNavbar userInfo={this.props.userInfo} />
+        {f1 && <>{RfpList}</>}
         {selected && (
           <Redirect
             push
@@ -306,23 +302,22 @@ export class Agr extends React.Component {
           />
         )}
         {finalProceed && (
-           <Redirect
+          <Redirect
             push
             to={{
               pathname: "/selectionPage1",
             }}
           />
-          )}
-          {currProceed && (
-           <Redirect
+        )}
+        {currProceed && (
+          <Redirect
             push
             to={{
               pathname: "/selectionPage2",
             }}
           />
-          )}
-      <Footer />
-        
+        )}
+        <Footer />
       </div>
     );
   }
@@ -330,7 +325,7 @@ export class Agr extends React.Component {
 const mapStateToProps = (state) => {
   return {
     userInfo: state.userInfo,
-    loading:state.loading
+    loading: state.loading,
   };
 };
 
@@ -338,11 +333,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onChangeUserInfo: (userInfo) =>
       dispatch({ type: actionTypes.CHANGE_STATE, userInfo: userInfo }),
-    onChangeloading: (loading) => 
-      dispatch({type:actionTypes.CHANGE_LOADING , loading:loading}),
-    onChangeRfp: (rfp) => 
-      dispatch({type:actionTypes.CHANGE_RFP , rfp:rfp})
-
+    onChangeloading: (loading) =>
+      dispatch({ type: actionTypes.CHANGE_LOADING, loading: loading }),
+    onChangeRfp: (rfp) => dispatch({ type: actionTypes.CHANGE_RFP, rfp: rfp }),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Agr);

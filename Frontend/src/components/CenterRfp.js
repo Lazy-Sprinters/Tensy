@@ -19,18 +19,18 @@ export class Agr extends React.Component {
     selected: false,
     initial: true,
     RfpList: "",
-    f1:false,
+    f1: false,
     slots: "",
     CentreValue: "",
-    centreList:"",
-    ModalShow:false,
-    ModalShow1:false,
-    ModalShow2:false,
-    ModalShow3:false,
-    finalProceed:false,
-    currProceed:false,
-    Mode_Of_Delivery:"",
-    rfpid:""
+    centreList: "",
+    ModalShow: false,
+    ModalShow1: false,
+    ModalShow2: false,
+    ModalShow3: false,
+    finalProceed: false,
+    currProceed: false,
+    Mode_Of_Delivery: "",
+    rfpid: "",
   };
   handleChange = (input) => (e) => {
     this.setState({ [input]: e.target.value });
@@ -39,103 +39,104 @@ export class Agr extends React.Component {
     // this.setState({slots:x.data});
     this.setState({ selected: true });
   };
-  handleModal = (x) =>{
-    this.setState({ModalShow:x});
+  handleModal = (x) => {
+    this.setState({ ModalShow: x });
     // !x && this.setState({selected:true})
-
   };
-  handleModal1 = (x) =>{
-    this.setState({ModalShow1:x});
+  handleModal1 = (x) => {
+    this.setState({ ModalShow1: x });
     // !x && this.setState({selected:true})
-
   };
-  handleModal2 = (x) =>{
-    this.setState({ModalShow2:x});
+  handleModal2 = (x) => {
+    this.setState({ ModalShow2: x });
     // !x && this.setState({selected:true})
-
   };
-  handleModal3 = (x) =>{
-    this.setState({ModalShow3:x});
+  handleModal3 = (x) => {
+    this.setState({ ModalShow3: x });
     // !x && this.setState({selected:true})
-
   };
-  proceedToHome = (x) =>{
-    this.setState({selected:x})
+  proceedToHome = (x) => {
+    this.setState({ selected: x });
   };
-  show( centerInfo) {
+  show(centerInfo) {
     /* tochange */
     this.setState({ initial: false });
     this.props.onChangeloading(true);
-    const data={Vendor_id:centerInfo.data._id};
+    const data = { Vendor_id: centerInfo.data._id };
     // let centreList;
-    Axios.post("http://localhost:5000/vendor/allbids",data)
+    Axios.post("http://localhost:8080/vendor/allbids", data)
       .then((res) => {
         console.log(res);
         // this.handleSearch(res);
         this.show2(res.data);
       })
       .catch((err) => {
-          console.log("Axios", err.message);
-      }); 
-  };
- onFinal = (x) =>{
-    this.setState({rfpid:x});
-    this.handleModal2(true);
-  } ;
-  accept = (x) =>{
-    console.log(x)
-    const data={Bid_id:x.Bid_id};
-    // this.props.onChangeRfp(x.Rfp_id);
-     Axios.post("http://localhost:5000/vendor/accept",data)
-      .then((res) => {
-        console.log(res);
-        window.location.reload();
-        // this.handleSearch(res);
-        // this.show2(res.data);
-      })
-      .catch((err) => {
-          console.log("Axios", err.message);
+        console.log("Axios", err.message);
       });
-  }; 
-   onCurrent = (x) =>{
-    this.setState({rfpid:x});
-    this.handleModal3(true);
-  } ;
-  negotiate = (x,Vendor_id,Price_Per_Unit,Mode_Of_Delivery) =>{
-   const data={Bid_id:x.Bid_id,Vendor_id,Price_Per_Unit,Mode_Of_Delivery};
-    // this.props.onChangeRfp(x.Rfp_id);
-     Axios.post("http://localhost:5000/vendor/negotiate2",data)
-      .then((res) => {
-        console.log(res);
-        // this.handleSearch(res);
-        window.location.reload();
-        // this.show2(res.data);
-      })
-      .catch((err) => {
-          console.log("Axios", err.message);
-      });
-  } ;
-  onDelete = (x) =>{
-    this.setState({rfpid:x});
-    this.handleModal1(true);
-  } ;
-  delete = (x) => {
-    const data={Bid_id:x.Bid_id};
-     Axios.post("http://localhost:5000/vendor/deletebid",data)
-      .then((res) => {
-        console.log(res);
-        // this.handleSearch(res);
-        window.location.reload();
-        // this.show2(res.data);
-      })
-      .catch((err) => {
-          console.log("Axios", err.message);
-      }); 
   }
-    show2(RfpList,centerInfo){
+  onFinal = (x) => {
+    this.setState({ rfpid: x });
+    this.handleModal2(true);
+  };
+  accept = (x) => {
+    console.log(x);
+    const data = { Bid_id: x.Bid_id };
+    // this.props.onChangeRfp(x.Rfp_id);
+    Axios.post("http://localhost:8080/vendor/accept", data)
+      .then((res) => {
+        console.log(res);
+        window.location.reload();
+        // this.handleSearch(res);
+        // this.show2(res.data);
+      })
+      .catch((err) => {
+        console.log("Axios", err.message);
+      });
+  };
+  onCurrent = (x) => {
+    this.setState({ rfpid: x });
+    this.handleModal3(true);
+  };
+  negotiate = (x, Vendor_id, Price_Per_Unit, Mode_Of_Delivery) => {
+    const data = {
+      Bid_id: x.Bid_id,
+      Vendor_id,
+      Price_Per_Unit,
+      Mode_Of_Delivery,
+    };
+    // this.props.onChangeRfp(x.Rfp_id);
+    Axios.post("http://localhost:8080/vendor/negotiate2", data)
+      .then((res) => {
+        console.log(res);
+        // this.handleSearch(res);
+        window.location.reload();
+        // this.show2(res.data);
+      })
+      .catch((err) => {
+        console.log("Axios", err.message);
+      });
+  };
+  onDelete = (x) => {
+    this.setState({ rfpid: x });
+    this.handleModal1(true);
+  };
+  delete = (x) => {
+    const data = { Bid_id: x.Bid_id };
+    Axios.post("http://localhost:8080/vendor/deletebid", data)
+      .then((res) => {
+        console.log(res);
+        // this.handleSearch(res);
+        window.location.reload();
+        // this.show2(res.data);
+      })
+      .catch((err) => {
+        console.log("Axios", err.message);
+      });
+  };
+  show2(RfpList, centerInfo) {
     let len = RfpList.length;
-    let f1=(len>0);
-    this.setState({f1:f1});
+    let f1 = len > 0;
+    this.setState({ f1: f1 });
     let i;
     const code: JSX.Element[] = [];
     for (i = 0; i < len - 2; i += 3) {
@@ -266,7 +267,7 @@ export class Agr extends React.Component {
     }
     this.setState({ RfpList: code });
     this.handleModal(!f1);
-    setTimeout(() => this.props.onChangeloading(false),2000);
+    setTimeout(() => this.props.onChangeloading(false), 2000);
   }
   render() {
     // const { RfpList,centerInfo} = this.props;        /* tochange */
@@ -278,10 +279,15 @@ export class Agr extends React.Component {
       RfpList,
       slots,
       CentreValue,
-      f1,ModalShow,ModalShow1,ModalShow2,ModalShow3,
+      f1,
+      ModalShow,
+      ModalShow1,
+      ModalShow2,
+      ModalShow3,
       finalProceed,
       Mode_Of_Delivery,
-      currProceed,rfpid
+      currProceed,
+      rfpid,
     } = this.state;
 
     const values = {
@@ -292,57 +298,61 @@ export class Agr extends React.Component {
     return (
       <div className="helper">
         {initial && this.show(this.props.centerInfo)}
-      <TnCModal
-        btnshow={true}
-        btntext={true}
-        size="lg"
-        name="No RFPs Done Yet"
-        head="Please post RFPs to view them "
-        show={ModalShow}
-        onHide={() => this.handleModal(false)}
-        onAgree={() => this.proceedToHome(true)}
-      />
-      <TnCModal
-        // btnshow={true}
-        // btntext={true}
-        size="lg"
-        name="Are you sure you want to delete the RFP ? Note: This action in irreversible."
-        // head="Please Try Again Later"
-        show={ModalShow1}
-        onHide={() => this.handleModal1(false)}
-        onAgree={() => this.delete(rfpid)}
-      />
-      <TnCModal
-        // btnshow={true}
-        // btntext={true}
-        size="lg"
-        name="Are you sure you want to accept the bid for the RFP? Note: This action in irreversible."
-        // head="Please Try Again Later"
-        show={ModalShow2}
-        onHide={() => this.handleModal2(false)}
-        onAgree={() => this.accept(rfpid)}
-      />
-       {ModalShow3 && <TnCModal3
-        // btnshow={true}
-        // btntext={true}
-        // Price_Per_Unit={Price_Per_Unit}
-        rfpid={rfpid}
-        Mode_Of_Delivery={Mode_Of_Delivery}
-        handleChange={this.handleChange}
-        size="lg"
-        name="Fill In the negotiation details"
-        head="Please enter the required details for negotiation proposal. Note: This action in irreversible."
-        show={ModalShow3}
-        onHide={() => this.handleModal3(false)}
-        onAgree={(Price_Per_Unit) => this.negotiate(rfpid,this.props.centerInfo._id,Price_Per_Unit,Mode_Of_Delivery)}
-      />}
-       <CenterLoginNavbar
-        centerInfo={this.props.centerInfo}
-      />
-        {f1 && <> 
-          {RfpList}
-          </>
-        }
+        <TnCModal
+          btnshow={true}
+          btntext={true}
+          size="lg"
+          name="No RFPs Done Yet"
+          head="Please post RFPs to view them "
+          show={ModalShow}
+          onHide={() => this.handleModal(false)}
+          onAgree={() => this.proceedToHome(true)}
+        />
+        <TnCModal
+          // btnshow={true}
+          // btntext={true}
+          size="lg"
+          name="Are you sure you want to delete the RFP ? Note: This action in irreversible."
+          // head="Please Try Again Later"
+          show={ModalShow1}
+          onHide={() => this.handleModal1(false)}
+          onAgree={() => this.delete(rfpid)}
+        />
+        <TnCModal
+          // btnshow={true}
+          // btntext={true}
+          size="lg"
+          name="Are you sure you want to accept the bid for the RFP? Note: This action in irreversible."
+          // head="Please Try Again Later"
+          show={ModalShow2}
+          onHide={() => this.handleModal2(false)}
+          onAgree={() => this.accept(rfpid)}
+        />
+        {ModalShow3 && (
+          <TnCModal3
+            // btnshow={true}
+            // btntext={true}
+            // Price_Per_Unit={Price_Per_Unit}
+            rfpid={rfpid}
+            Mode_Of_Delivery={Mode_Of_Delivery}
+            handleChange={this.handleChange}
+            size="lg"
+            name="Fill In the negotiation details"
+            head="Please enter the required details for negotiation proposal. Note: This action in irreversible."
+            show={ModalShow3}
+            onHide={() => this.handleModal3(false)}
+            onAgree={(Price_Per_Unit) =>
+              this.negotiate(
+                rfpid,
+                this.props.centerInfo._id,
+                Price_Per_Unit,
+                Mode_Of_Delivery
+              )
+            }
+          />
+        )}
+        <CenterLoginNavbar centerInfo={this.props.centerInfo} />
+        {f1 && <>{RfpList}</>}
         {selected && (
           <Redirect
             push
@@ -351,8 +361,7 @@ export class Agr extends React.Component {
             }}
           />
         )}
-      <Footer />
-        
+        <Footer />
       </div>
     );
   }
@@ -360,7 +369,7 @@ export class Agr extends React.Component {
 const mapStateToProps = (state) => {
   return {
     centerInfo: state.centerInfo,
-    loading:state.loading
+    loading: state.loading,
   };
 };
 
@@ -368,11 +377,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onChangeCenterInfo: (centerInfo) =>
       dispatch({ type: actionTypes.CHANGE_CENTERINFO, centerInfo: centerInfo }),
-    onChangeloading: (loading) => 
-      dispatch({type:actionTypes.CHANGE_LOADING , loading:loading}),
-    onChangeRfp: (rfp) => 
-      dispatch({type:actionTypes.CHANGE_RFP , rfp:rfp})
-
+    onChangeloading: (loading) =>
+      dispatch({ type: actionTypes.CHANGE_LOADING, loading: loading }),
+    onChangeRfp: (rfp) => dispatch({ type: actionTypes.CHANGE_RFP, rfp: rfp }),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Agr);

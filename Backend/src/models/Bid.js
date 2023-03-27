@@ -1,35 +1,37 @@
-const mongoose=require('mongoose');
+const mongoose = require("mongoose");
 
-const BidSchema=mongoose.Schema({
-      Status:{
-            type:Boolean
-            //false->open true->finalized
+const BidSchema = mongoose.Schema({
+  Status: {
+    type: Boolean,
+    //false->open true->finalized
+  },
+  vendor_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+  },
+  manufacturer_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+  },
+  rfp_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+  },
+  All_negotiation: [
+    {
+      Quote_Cost_per_Unit: {
+        type: Number,
       },
-      vendor_id:{
-            type:mongoose.Schema.Types.ObjectId,
-            required:true
+      Quote_ModeofDelivery: {
+        type: String,
       },
-      manufacturer_id:{
-            type:mongoose.Schema.Types.ObjectId,
-            required:true
+      Quote_owner: {
+        type: mongoose.Schema.Types.ObjectId,
       },
-      rfp_id:{
-            type:mongoose.Schema.Types.ObjectId,
-            required:true
-      },
-      All_negotiation:[{
-            Quote_Cost_per_Unit:{
-                  type:Number
-            },
-            Quote_ModeofDelivery:{
-                  type:String
-            },
-            Quote_owner:{
-                  type:mongoose.Schema.Types.ObjectId,
-            }
-      }],
-})
+    },
+  ],
+});
 
-const Bid=mongoose.model('Bid',BidSchema);
+const Bid = mongoose.model("Bid", BidSchema);
 
-module.exports=Bid;
+module.exports = Bid;

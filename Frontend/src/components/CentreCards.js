@@ -17,7 +17,7 @@ export class CentreCards extends React.Component {
     origcode: "",
     slots: "",
     CentreValue: "",
-    centreList:""
+    centreList: "",
   };
   handleChange = (input) => (e) => {
     this.setState({ [input]: e.target.value });
@@ -32,7 +32,7 @@ export class CentreCards extends React.Component {
     const ret = { userInfo: flag2, flag1 };
     console.log(ret);
     this.props.onChangeloading(true);
-    Axios.post("http://localhost:5000/user/allslots", ret)
+    Axios.post("http://localhost:8080/user/allslots", ret)
       .then((res) => {
         this.handleClick(res);
       })
@@ -46,25 +46,25 @@ export class CentreCards extends React.Component {
     this.props.onChangeslots(x.data);
     this.setState({ selected: true });
   };
-  show( userInfo) {
+  show(userInfo) {
     /* tochange */
     this.setState({ initial: false });
     this.props.onChangeloading(true);
-    const test=this.props.bookInfo.test;
-    const date=this.props.bookInfo.date;
-    const data={test,date,userInfo};
+    const test = this.props.bookInfo.test;
+    const date = this.props.bookInfo.date;
+    const data = { test, date, userInfo };
     // let centreList;
-    Axios.post("http://localhost:5000/user/match",data)
+    Axios.post("http://localhost:8080/user/match", data)
       .then((res) => {
         console.log(res);
         // this.handleSearch(res);
-        this.show2(res.data,userInfo);
+        this.show2(res.data, userInfo);
       })
       .catch((err) => {
-          console.log("Axios", err.message);
-      }); 
+        console.log("Axios", err.message);
+      });
   }
-    show2(centreList,userInfo){
+  show2(centreList, userInfo) {
     let len = centreList.length;
     let i;
     const code: JSX.Element[] = [];
@@ -79,7 +79,7 @@ export class CentreCards extends React.Component {
     //   Rating='3'
     //   Tags={['Some', 'Random', 'text','Some', 'Random', 'text','Some']}/>);
     for (i = 0; i < len - 2; i += 3) {
-      console.log(i)
+      console.log(i);
       let value = centreList[i];
       let value1 = centreList[i + 1];
       let value2 = centreList[i + 2];
@@ -188,7 +188,7 @@ export class CentreCards extends React.Component {
         </div>
       );
     }
-    setTimeout(() => this.props.onChangeloading(false),2000);
+    setTimeout(() => this.props.onChangeloading(false), 2000);
     this.setState({ origcode: code });
   }
   render() {
@@ -201,7 +201,7 @@ export class CentreCards extends React.Component {
       origcode,
       slots,
       CentreValue,
-      centreList
+      centreList,
     } = this.state;
 
     const values = {
@@ -211,8 +211,7 @@ export class CentreCards extends React.Component {
     };
     return (
       <div className="helper">
-        {initial && this.show(this.props.userInfo)}{" "}
-        {/* tochange */}
+        {initial && this.show(this.props.userInfo)} {/* tochange */}
         {origcode}
         {selected && (
           <Redirect
@@ -231,8 +230,8 @@ const mapStateToProps = (state) => {
   return {
     userInfo: state.userInfo,
     centreList: state.centreList,
-    bookInfo:state.bookInfo,
-    loading:state.loading
+    bookInfo: state.bookInfo,
+    loading: state.loading,
   };
 };
 
@@ -247,9 +246,10 @@ const mapDispatchToProps = (dispatch) => {
         type: actionTypes.CHANGE_CENTREVALUE,
         CentreValue: CentreValue,
       }),
-    onChangecentreList: (centreList) => dispatch({type:actionTypes.CHANGE_CENTRELIST , centreList:centreList}),
-    onChangeloading: (loading) => dispatch({type:actionTypes.CHANGE_LOADING , loading:loading})
-
+    onChangecentreList: (centreList) =>
+      dispatch({ type: actionTypes.CHANGE_CENTRELIST, centreList: centreList }),
+    onChangeloading: (loading) =>
+      dispatch({ type: actionTypes.CHANGE_LOADING, loading: loading }),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CentreCards);
